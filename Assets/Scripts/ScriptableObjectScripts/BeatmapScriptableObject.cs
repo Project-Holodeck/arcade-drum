@@ -2,21 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct HitObject
-{
-    public float startTime;
-    public float endTime;
-}
-
 public class BeatmapEvent
 {
     public float startTime;
     public float endTime;
+
+}
+
+public class HitObject : BeatmapEvent
+{
+    public int lane; // 0 to 3
+    public HitObject(float startTime, float endTime, int lane)
+    {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.lane = lane;
+    }
 }
 
 public class RoadRegionTransition : BeatmapEvent
 {
     public int newRoadRegion;
+    public RoadRegionTransition(float startTime, float endTime, int newRoadRegion)
+    {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.newRoadRegion = newRoadRegion;
+    }
 }
 
 public enum Difficulty { EASY, MEDIUM, HARD };

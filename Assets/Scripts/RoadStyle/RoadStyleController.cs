@@ -15,7 +15,20 @@ public class RoadStyleController : MonoBehaviour
     // Public variables
     public RoadStyle roadStyle = RoadStyle.SUBWAY;
 
-    public void DrawVisuals(){
+    // Private component references
+    public static RoadStyleController instance;
+
+    private void Awake()
+    {
+        if (instance != null){
+            Destroy(gameObject); // Can't have two roadstyle controllers active at once
+        } else {
+            instance = this;
+        }
+    }
+
+    // Will spawn an individual hit object, implemented in each inherited class cause it's specific to the road style
+    public virtual void HandleBeatmapEvent(BeatmapEvent be){
 
     }
 }

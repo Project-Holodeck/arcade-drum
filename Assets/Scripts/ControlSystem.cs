@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ControlSystemScript : MonoBehaviour
+public class ControlSystem : MonoBehaviour
 {
     //Y = 8.1, Z = 8, X = | 1.1, 3.4 |
     public float startY = 8.1f, startZ = 8f;

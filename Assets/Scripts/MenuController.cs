@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuScript : MonoBehaviour
+/// <summary>
+/// Controls the main menu..?
+/// </summary>
+public class MenuController : MonoBehaviour
 {
 
     public void quitGame()

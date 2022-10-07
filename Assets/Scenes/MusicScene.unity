@@ -1174,8 +1174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74d6540c8623146904b671cafa67f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 0}
   trackTime: 0
+  comboCount: 0
 --- !u!4 &2068907987
 Transform:
   m_ObjectHideFlags: 0
@@ -1190,6 +1190,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2130477454 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3356806786171187116, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+  m_PrefabInstance: {fileID: 3356806787082104354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2130477457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2130477454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad1a73e8d086ab45a5353a27dc47f84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanePressedArray: 00000000
 --- !u!1 &945453355718381622
 GameObject:
   m_ObjectHideFlags: 0

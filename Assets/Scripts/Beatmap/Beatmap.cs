@@ -36,12 +36,10 @@ public enum Difficulty { EASY, MEDIUM, HARD };
 /// <summary>
 /// Manages the HitObjects,
 /// </summary>
-[CreateAssetMenu(fileName = "Beatmap Configuration", menuName = "ScriptableObject/Beatmap Configuration", order = 1)]
-public class BeatmapScriptableObject : ScriptableObject
+public class Beatmap
 {
-
     [Header("Beatmap Information")]
-    public LevelScriptableObject level;
+    public LevelData level;
     public Difficulty difficulty;
 
     [Header("Style Information")]
@@ -52,5 +50,5 @@ public class BeatmapScriptableObject : ScriptableObject
     public float speed; // 1 / (pressTime - spawnTime), so higher speed means less time between spawn and hit
 
     [Header("Mapped HitObjects")]
-    public List<HitObject> hitObjects;
+    public List<BeatmapEvent> beatmapEvents;
 }

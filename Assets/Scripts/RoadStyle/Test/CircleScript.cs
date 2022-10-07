@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Will probably be deprecated to switch to something that stays stuck on the minecart tracks.
+/// </summary>
 public class CircleScript : MonoBehaviour
 {
     // 1.1, 3.4

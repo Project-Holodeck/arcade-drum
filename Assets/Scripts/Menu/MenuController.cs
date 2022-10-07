@@ -9,13 +9,13 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
 
-    public void quitGame()
+    public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
     }
 
-    public void playGame()
+    public void PlayGame()
     {
         SceneManager.LoadScene("MusicScene");
     }

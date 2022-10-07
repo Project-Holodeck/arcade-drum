@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Level Configuration", menuName = "ScriptableObject/Level Configuration", order = 1)]
-public class LevelScriptableObject : ScriptableObject
+public class LevelData
 {
     [Header("Level Information")]
     public string songName;
@@ -12,5 +11,5 @@ public class LevelScriptableObject : ScriptableObject
     public int songLength; // In seconds, will convert to minutes:seconds for display
 
     [Header("Beatmap")]
-    public Dictionary<Difficulty, BeatmapScriptableObject> beatmaps;
+    public Dictionary<Difficulty, Beatmap> beatmaps;
 }

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Should be fully deprectated now. Check that all the functionality is in LevelController and PlayerInputController.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     private GameObject[] circles0, circles1, circles2, circles3;

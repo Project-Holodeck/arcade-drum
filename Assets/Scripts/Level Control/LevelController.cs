@@ -24,7 +24,7 @@ public class LevelController : MonoBehaviour
     {
         if (instance != null)
         {
-            Destroy(gameObject); // Can't have two roadstyle controllers active at once
+            Destroy(gameObject); // Can't have two level controllers active at once
         }
         else
         {

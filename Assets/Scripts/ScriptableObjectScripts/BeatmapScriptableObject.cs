@@ -41,12 +41,15 @@ public class BeatmapScriptableObject : ScriptableObject
 {
 
     [Header("Beatmap Information")]
-    public TrackScriptableObject track;
+    public LevelScriptableObject level;
     public Difficulty difficulty;
 
     [Header("Style Information")]
     public RoadStyle roadStyle = RoadStyle.SUBWAY; // Which style to display on
     public int roadRegion = 0; // int from 0 upwards that indexes possible road styles. i.e. switching from grungy subway to clean for a solo section.
+
+    [Header("Speed Information")]
+    public float speed; // 1 / (pressTime - spawnTime), so higher speed means less time between spawn and hit
 
     [Header("Mapped HitObjects")]
     public List<HitObject> hitObjects;

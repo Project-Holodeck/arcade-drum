@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SubwayRoadStyleController : RoadStyleController
+/// <summary>
+/// Derived class of RoadStyleController for Test RoadStyle.
+/// </summary>
+public class TestRoadStyleController : RoadStyleController
 {
     [Header("Prefabs")]
-    public GameObject ratPrefab;
-    
+    public GameObject circlePrefab;
+
     // Private component references
     private Transform[] hitObjectSpawnTransforms;
 
@@ -25,18 +28,22 @@ public class SubwayRoadStyleController : RoadStyleController
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public override void HandleBeatmapEvent(BeatmapEvent be){
+    public override void HandleBeatmapEvent(BeatmapEvent be)
+    {
         System.Type beType = be.GetType();
-        if (beType == typeof(HitObject)){
+        if (beType == typeof(HitObject))
+        {
             HitObject h = (HitObject)be;
             // Spawn a rat
-            Instantiate(ratPrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity);
-        } else if (beType == typeof(RoadRegionTransition)){
+            Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity);
+        }
+        else if (beType == typeof(RoadRegionTransition))
+        {
             RoadRegionTransition rrt = (RoadRegionTransition)be;
         }
-        
+
     }
 }

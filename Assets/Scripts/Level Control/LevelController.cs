@@ -54,7 +54,7 @@ public class LevelController : MonoBehaviour
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
 
-        ProcessBeatmap();
+        //ProcessBeatmap();
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably

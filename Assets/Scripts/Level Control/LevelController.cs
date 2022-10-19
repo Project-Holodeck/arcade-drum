@@ -115,6 +115,8 @@ public class LevelController : MonoBehaviour
                         hit = true;
                         //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
                         // pls edit this to work with not distance, but TIME. TY! TODO
+                        //to edit: 500000 is random, we should probably test a fair value
+                        scoreInt += (int)((1 / difference) * 500000.0f * (1 + comboCount / 10f));
                         scoreCountText.text = scoreInt.ToString();
                         comboCount++;
                         //sDestroy(circle);

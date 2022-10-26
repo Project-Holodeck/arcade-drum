@@ -59,7 +59,7 @@ public class LevelController : MonoBehaviour
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
-    void SetLevel(LevelData level){
+    public void SetLevel(LevelData level){
         this.level = level;
         beatmap = level.beatmaps[Difficulty.EASY]; 
     }

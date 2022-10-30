@@ -9,6 +9,7 @@ public class Circle : HitObjectVisual
     private float speed = 10.0f;
     private float line = -4f;
     private PlayerController playerControllerScript;
+    private AudioSource[] soundEffects;
     
     // Start is called before the first frame update
     void Start()
@@ -28,12 +29,22 @@ public class Circle : HitObjectVisual
         
         if (transform.position.z < line) // TODO: Fix hard coded line and speed
         {
-            Destroy(gameObject);
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            Invoke("destruction", 2.0f);
             playerControllerScript.comboCount = 0;
         }
     }
 
     public override void Hit(){
+        soundEffects = GetComponentsInChildren<AudioSource>();
+        Debug.Log(soundEffects.Length);
+        soundEffects[0].Play();
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        Invoke("destruction", 8.0f);
+    }
+
+    void destruction()
+    {
         Destroy(gameObject);
     }
 }

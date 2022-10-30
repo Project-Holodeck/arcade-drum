@@ -9,7 +9,6 @@ public class TestRoadStyleController : RoadStyleController
 {
     [Header("Prefabs")]
     public GameObject circlePrefab;
-
     // Private component references
     private Transform[] hitObjectSpawnTransforms;
     private LevelController levelController;

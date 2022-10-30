@@ -54,7 +54,8 @@ public class LevelController : MonoBehaviour
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
 
-        ProcessBeatmap();
+        InitializeHitObjectLanes();
+        //ProcessBeatmap();
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
@@ -64,13 +65,16 @@ public class LevelController : MonoBehaviour
         beatmap = level.beatmaps[Difficulty.EASY]; 
     }
 
-    void ProcessBeatmap(){
+    void InitializeHitObjectLanes(){
         hitObjectsByLane = new Dictionary<int, List<HitObject>>();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             hitObjectsByLane[i] = new List<HitObject>(); ;
         }
+    }
 
+    void ProcessBeatmap(){
+        InitializeHitObjectLanes();
         foreach (BeatmapEvent be in beatmap.beatmapEvents)
         {
             if (be.GetType() == typeof(HitObject)){
@@ -86,14 +90,14 @@ public class LevelController : MonoBehaviour
         trackTime += Time.deltaTime;
 
         // Input detection
-
+        //Debug.Log("hi");
         // Janky input detection
         bool tempSpawnRandomNote = Input.GetKeyDown(KeyCode.Space);
         bool tempStartSong = Input.GetKeyDown(KeyCode.Return);
 
         // Less janky input detection
         playerInputController.UpdateInputs(); // General class, derived class will connect w/ Arduino
-        
+
         if (tempSpawnRandomNote){
             HitObject randomHitObject = new HitObject(trackTime, trackTime + 0.01f, Random.Range(0, 4));
             roadStyleController.HandleBeatmapEvent(randomHitObject);
@@ -119,7 +123,7 @@ public class LevelController : MonoBehaviour
                         scoreInt += (int)((1 / difference) * 500000.0f * (1 + comboCount / 10f));
                         scoreCountText.text = scoreInt.ToString();
                         comboCount++;
-                        //sDestroy(circle);
+                        Destroy(circle);
                     }
                 }
                 if (!hit){

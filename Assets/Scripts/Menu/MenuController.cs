@@ -15,8 +15,8 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayGame()
+    public void LoadBeatmap()
     {
-        SceneManager.LoadScene("MusicScene");
+        SceneManager.LoadScene("Beatmap Level");
     }
 }

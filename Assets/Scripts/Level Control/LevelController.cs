@@ -66,7 +66,7 @@ public class LevelController : MonoBehaviour
 
     void ProcessBeatmap(){
         hitObjectsByLane = new Dictionary<int, List<HitObject>>();
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             hitObjectsByLane[i] = new List<HitObject>(); ;
         }

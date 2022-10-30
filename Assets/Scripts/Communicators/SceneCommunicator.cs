@@ -8,26 +8,28 @@ public class SceneCommunicator : MonoBehaviour
 {
     public LevelData sceneLevel;
 
+    public static SceneCommunicator instance;
+
     void Awake()
     {
-        GameObject[] sceneCommunicators = GameObject.FindGameObjectsWithTag("SceneCommunicator");
-
-        if(sceneCommunicators.Length > 1)
+        if (instance != null)
+            Destroy(gameObject);
+        else
         {
-            Destroy(this.gameObject);
+            instance = this;
+            DontDestroyOnLoad(instance.gameObject);
         }
-
-        DontDestroyOnLoad(this.gameObject);
     }
-    // Start is called before the first frame update
-    void Start()
+
+    void OnLevelWasLoaded()
     {
+        Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "Beatmap Level")
-            GameObject.Find("LevelController").GetComponent<LevelController>().SetLevel(sceneLevel);
+            GameObject.Find("LevelController").GetComponent<LevelController>().SetLevel(instance.sceneLevel);
     }
 
-    public void SetSceneLevel(LevelData level)
+    public void SetBeatmapLevel(LevelData levelData)
     {
-        this.sceneLevel = level;
+        sceneLevel = levelData;
     }
 }

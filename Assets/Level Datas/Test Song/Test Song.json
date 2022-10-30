@@ -1,8 +1,6 @@
 {
-	"song": {
 		"songName": "Test",
 		"albumName": "TestAlbum",
 		"artistName": "John Doe",
-		"songLength": 180,
-	}
+		"songLength": 180
 }

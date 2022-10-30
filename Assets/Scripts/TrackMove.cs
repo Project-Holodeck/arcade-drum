@@ -12,7 +12,7 @@ public class TrackMove : MonoBehaviour
     {
         startPos = transform.position;
         repeatWidth = GetComponent<BoxCollider>().size.y;
-        Debug.Log(repeatWidth);
+        //Debug.Log(repeatWidth);
     }
 
     // Update is called once per frame  

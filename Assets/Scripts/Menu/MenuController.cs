@@ -9,6 +9,16 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
 
+    public static MenuController instance;
+
+    public void Awake()
+    {
+        if (instance != null)
+            Destroy(gameObject);
+        else
+            instance = this;
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
@@ -19,4 +29,5 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadScene("Beatmap Level");
     }
+
 }

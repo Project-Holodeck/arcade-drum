@@ -62,7 +62,8 @@ public class LevelController : MonoBehaviour
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     public void SetLevel(LevelData level){
         this.level = level;
-        beatmap = level.beatmaps[Difficulty.EASY]; 
+        //beatmap = level.beatmaps[Difficulty.EASY];
+        Debug.Log(JsonUtility.ToJson(level));
     }
 
     void InitializeHitObjectLanes(){

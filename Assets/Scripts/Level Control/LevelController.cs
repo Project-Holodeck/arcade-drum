@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+using System.Linq;
 
 public struct HitObjectVisualPairing{
     public HitObject h;
@@ -36,9 +36,9 @@ public class LevelController : MonoBehaviour
     [Header("Current Attempt Data")]
     private int scoreInt = 0;
     public int comboCount = 0;
-
+    private List<float> accuracy = new List<float>();
     // Private component references
-    private TextMeshProUGUI scoreCountText, comboText, comboCountText;
+    private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
     AudioSource audioSource;
     RoadStyleController roadStyleController;
     PlayerInputController playerInputController;
@@ -66,6 +66,7 @@ public class LevelController : MonoBehaviour
         scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
+        accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         // Temp fix 
         Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 0.5f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
@@ -158,9 +159,9 @@ public class LevelController : MonoBehaviour
             HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];
             HitObject h = pairing.h;
             float difference = trackTime - h.startTime;
-            
+            float tolerance = 0.3f; //TODO global tolerance
             // HIT DETECTION
-            if (hitting && Mathf.Abs(difference) < 0.3f) // TODO Global tolerance
+            if (hitting && Mathf.Abs(difference) < tolerance) // TODO Global tolerance
             {
                 hit = true;
                 //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
@@ -173,9 +174,16 @@ public class LevelController : MonoBehaviour
                 pairing.hv.Hit();
                 hitObjectsToHitByLane[i].Remove(pairing);
                 //Debug.Log("Hit!");
-            } else if (difference > 0.3f){
+
+                //accuracy text
+                accuracy.Add((tolerance - Mathf.Abs(difference)) / tolerance * 100f);
+                int averageAcc = (int)accuracy.Sum() / accuracy.Count();
+                accuracyText.text = averageAcc.ToString() + '%';
+                
+            } else if (difference > tolerance){
                 hitObjectsToHitByLane[i].Remove(pairing);
                 missed = true;
+                accuracy.Add(0f);
                 //Debug.Log("Too late!");
             }
 
@@ -198,5 +206,8 @@ public class LevelController : MonoBehaviour
             comboText.maxVisibleCharacters = 0;
             comboCountText.maxVisibleCharacters = 0;
         }
+        
+        //accuracy text
+
     }
 }

@@ -12,6 +12,9 @@ public enum RoadStyle { TEST, SUBWAY, CANYON }; // Style of road enum
 /// </summary>
 public class RoadStyleController : MonoBehaviour
 {
+    [Header("Inherited Prefabs")]
+    public TrackMove trackPrefab;
+
     // Public variables
     public RoadStyle roadStyle = RoadStyle.TEST;
 
@@ -35,6 +38,28 @@ public class RoadStyleController : MonoBehaviour
     {
         this.beatmap = beatmap;
         timeOffset = 1f / beatmap.speed;
+
+        // Draw the epic track
+        Vector3 startPos = transform.position + transform.forward * trackPrefab.repeatWidth * 29;
+        TrackMove first = null;
+        TrackMove lol = null;
+        TrackMove last = null;
+        for (int i = -4; i < 30; i++)
+        {
+            TrackMove tm = Instantiate(trackPrefab, transform.position + transform.forward * i * trackPrefab.repeatWidth, trackPrefab.transform.rotation);
+            if (i == -4)
+            {
+                first = tm;
+                lol = tm;
+            }
+            else
+            {
+                //Debug.Log(string.Format("{0} sjsus usus", distance * beatmap.speed));
+                tm.Setup(distance * beatmap.speed, startPos, lol, transform.position.z);
+                lol = tm;
+            }
+        }
+        first.Setup(distance * beatmap.speed, startPos, lol, transform.position.z);
     }
 
     // Will spawn an individual hit object, implemented in each inherited class cause it's specific to the road style

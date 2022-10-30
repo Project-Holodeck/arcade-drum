@@ -67,7 +67,7 @@ public class LevelController : MonoBehaviour
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         // Temp fix 
-        Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 1f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
+        Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 0.5f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
         testBeatmap.level = testLevel;
 
@@ -123,7 +123,7 @@ public class LevelController : MonoBehaviour
         // To delete lol, is just for testing
         if (tempSpawnRandomNote){
             int lane = Random.Range(0,  4);
-            HitObject randomHitObject = new HitObject(trackTime+1f, trackTime+1f, lane);
+            HitObject randomHitObject = new HitObject(trackTime + roadStyleController.timeOffset, trackTime + roadStyleController.timeOffset, lane);
             //roadStyleController.HandleBeatmapEvent(randomHitObject);
             hitObjectsToSpawnByLane[lane].Add(randomHitObject);
         }
@@ -153,8 +153,6 @@ public class LevelController : MonoBehaviour
             bool hit = false;
             bool missed = false;
             bool hitting = playerInputController.lanePressedArray[i];
-            int laneHitObjectsCount = hitObjectsToHitByLane[i].Count;
-            int hitRemovedCount = 0;
 
             if (hitObjectsToHitByLane[i].Count == 0) continue;
             HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];

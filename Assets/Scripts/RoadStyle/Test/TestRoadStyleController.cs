@@ -43,8 +43,9 @@ public class TestRoadStyleController : RoadStyleController
             HitObject h = (HitObject)be;
             // Spawn a rat
             Circle circle = Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity).GetComponent<Circle>();
+            //Debug.Log(string.Format("{0} sussy", distance * beatmap.speed));
             circle.Setup(distance * beatmap.speed);
-            hv = (HitObjectVisual)circle;
+            hv = circle;
         }
         else if (beType == typeof(RoadRegionTransition))
         {

@@ -2,22 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class Circle : HitObjectVisual
+public class Rat : HitObjectVisual
 {
     // 1.1, 3.4
     private float speed = 10.0f;
     private float line = -4f;
     private PlayerController playerControllerScript;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         playerControllerScript = GameObject.Find("PlayerController").GetComponent<PlayerController>();
-        
+
     }
 
-    public void Setup(float speed){
+    public void Setup(float speed)
+    {
         this.speed = speed;
     }
 
@@ -25,7 +25,7 @@ public class Circle : HitObjectVisual
     void Update()
     {
         transform.position -= Vector3.forward * speed * Time.deltaTime;
-        
+
         if (transform.position.z < line) // TODO: Fix hard coded line and speed
         {
             Destroy(gameObject);
@@ -33,7 +33,8 @@ public class Circle : HitObjectVisual
         }
     }
 
-    public override void Hit(){
+    public override void Hit()
+    {
         Destroy(gameObject);
     }
 }

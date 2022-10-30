@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 253597127822539809}
   - component: {fileID: 253597127822539822}
   - component: {fileID: 253597127822539823}
-  - component: {fileID: 253597127822539818}
+  - component: {fileID: 9110469671902512104}
   - component: {fileID: 253597127822539820}
   m_Layer: 0
   m_Name: Test Circle
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &253597127822539818
+--- !u!114 &9110469671902512104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

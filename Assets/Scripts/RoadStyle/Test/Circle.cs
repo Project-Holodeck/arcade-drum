@@ -5,11 +5,11 @@ using UnityEngine;
 /// <summary>
 /// Will probably be deprecated to switch to something that stays stuck on the minecart tracks.
 /// </summary>
-public class CircleScript : MonoBehaviour
+public class Circle : HitObjectVisual
 {
     // 1.1, 3.4
     private float speed = 10.0f;
-    private float line = -26.3f;
+    private float line = -4f;
     private PlayerController playerControllerScript;
     
     // Start is called before the first frame update
@@ -19,15 +19,23 @@ public class CircleScript : MonoBehaviour
         
     }
 
+    public void Setup(float speed){
+        this.speed = speed;
+    }
+
     // Update is called once per frame
     void Update()
     {
         transform.position -= Vector3.forward * speed * Time.deltaTime;
         
-        if (this.transform.position.z < line) // TODO: Fix hard coded line and speed
+        if (transform.position.z < line) // TODO: Fix hard coded line and speed
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             playerControllerScript.comboCount = 0;
         }
+    }
+
+    public override void Hit(){
+        Destroy(gameObject);
     }
 }

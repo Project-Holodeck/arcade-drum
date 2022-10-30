@@ -12,6 +12,7 @@ public class TestRoadStyleController : RoadStyleController
 
     // Private component references
     private Transform[] hitObjectSpawnTransforms;
+    private LevelController levelController;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,9 @@ public class TestRoadStyleController : RoadStyleController
         hitObjectSpawnTransforms[1] = hitObjectSpawns.Find("S1");
         hitObjectSpawnTransforms[2] = hitObjectSpawns.Find("S2");
         hitObjectSpawnTransforms[3] = hitObjectSpawns.Find("S3");
+
+        levelController = LevelController.instance;
+        distance = hitObjectSpawnTransforms[0].position.z; // the physical distance the circle moves in this road
     }
 
     // Update is called once per frame
@@ -31,20 +35,23 @@ public class TestRoadStyleController : RoadStyleController
 
     }
 
-    public override void HandleBeatmapEvent(BeatmapEvent be)
+    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv)
     {
         System.Type beType = be.GetType();
         if (beType == typeof(HitObject))
         {
             HitObject h = (HitObject)be;
             // Spawn a rat
-            Debug.Log("sus");
-            Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity);
+            Circle circle = Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity).GetComponent<Circle>();
+            circle.Setup(distance * beatmap.speed);
+            hv = (HitObjectVisual)circle;
         }
         else if (beType == typeof(RoadRegionTransition))
         {
             RoadRegionTransition rrt = (RoadRegionTransition)be;
+            hv = null;
+        } else {
+            hv = null;
         }
-
     }
 }

@@ -4,6 +4,16 @@ using UnityEngine;
 using TMPro;
 
 
+public struct HitObjectVisualPairing{
+    public HitObject h;
+    public HitObjectVisual hv;
+
+    public HitObjectVisualPairing(HitObject h, HitObjectVisual hv){
+        this.h = h;
+        this.hv = hv;
+    }
+}
+
 
 /// <summary>
 /// Controls most other components in the level.
@@ -13,8 +23,11 @@ public class LevelController : MonoBehaviour
 {
     [Header("Level Data")]
     public LevelData level; // Level data, contains beatmaps, difficulty settings, and styles
-    private Beatmap beatmap;
-    private Dictionary<int, List<HitObject>> hitObjectsByLane;
+    [HideInInspector]
+    public Beatmap beatmap;
+    private Dictionary<int, List<HitObject>> hitObjectsToSpawnByLane;
+    private Dictionary<int, List<HitObjectVisualPairing>> hitObjectsToHitByLane;
+
 
     [Header("Track Data")]
     [SerializeField]
@@ -53,23 +66,32 @@ public class LevelController : MonoBehaviour
         scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
+        // Temp fix 
+        Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 1f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
+        LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
+        testBeatmap.level = testLevel;
 
-        InitializeHitObjectLanes();
-        //ProcessBeatmap();
+
+        //InitializeHitObjectLanes();
+        SetLevel(testLevel);
+        ProcessBeatmap();
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     void SetLevel(LevelData level){
         this.level = level;
-        beatmap = level.beatmaps[Difficulty.EASY]; 
+        beatmap = level.beatmaps[Difficulty.EASY];
+        roadStyleController.Setup(beatmap);
     }
 
     void InitializeHitObjectLanes(){
-        hitObjectsByLane = new Dictionary<int, List<HitObject>>();
+        hitObjectsToSpawnByLane = new Dictionary<int, List<HitObject>>();
+        hitObjectsToHitByLane = new Dictionary<int, List<HitObjectVisualPairing>>();
         for (int i = 0; i < 4; i++)
         {
-            hitObjectsByLane[i] = new List<HitObject>(); ;
+            hitObjectsToSpawnByLane[i] = new List<HitObject>();
+            hitObjectsToHitByLane[i] = new List<HitObjectVisualPairing>();
         }
     }
 
@@ -79,7 +101,7 @@ public class LevelController : MonoBehaviour
         {
             if (be.GetType() == typeof(HitObject)){
                 HitObject h = (HitObject)be;
-                hitObjectsByLane[h.lane].Add(h);
+                hitObjectsToSpawnByLane[h.lane].Add(h);
             }
         }
     }
@@ -98,37 +120,71 @@ public class LevelController : MonoBehaviour
         // Less janky input detection
         playerInputController.UpdateInputs(); // General class, derived class will connect w/ Arduino
 
+        // To delete lol, is just for testing
         if (tempSpawnRandomNote){
-            HitObject randomHitObject = new HitObject(trackTime, trackTime + 0.01f, Random.Range(0, 4));
-            roadStyleController.HandleBeatmapEvent(randomHitObject);
+            int lane = Random.Range(0,  4);
+            HitObject randomHitObject = new HitObject(trackTime+1f, trackTime+1f, lane);
+            //roadStyleController.HandleBeatmapEvent(randomHitObject);
+            hitObjectsToSpawnByLane[lane].Add(randomHitObject);
         }
 
         if (tempStartSong){
             audioSource.Play();
         }
 
-        // For each lane, check if pressing and if it hit
+        // For all lanes, visualize hitobjects
         for (int i = 0; i < 4; i++)
         {
-            if (playerInputController.lanePressedArray[i]){
-                bool hit = false;
-                foreach (HitObject h in hitObjectsByLane[i])
-                {
-                    float difference = trackTime - h.startTime;
-                    if (Mathf.Abs(difference) < 0.5f){
-                        hit = true;
-                        //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
-                        // pls edit this to work with not distance, but TIME. TY! TODO
-                        //to edit: 500000 is random, we should probably test a fair value
-                        scoreInt += (int)((1 / difference) * 500000.0f * (1 + comboCount / 10f));
-                        scoreCountText.text = scoreInt.ToString();
-                        comboCount++;
-                        Destroy(circle);
-                    }
+            foreach (HitObject h in hitObjectsToSpawnByLane[i])
+            {
+                if (h.startTime - roadStyleController.timeOffset <= trackTime){
+                    HitObjectVisual hv;
+                    roadStyleController.HandleBeatmapEvent(h, out hv);
+                    hitObjectsToSpawnByLane[i].Remove(h);
+                    hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
+                    break;
                 }
-                if (!hit){
-                    comboCount = 0;
-                }
+            }
+        }
+
+        // Loop over all to hit
+        for (int i = 0; i < 4; i++)
+        {
+            bool hit = false;
+            bool missed = false;
+            bool hitting = playerInputController.lanePressedArray[i];
+            int laneHitObjectsCount = hitObjectsToHitByLane[i].Count;
+            int hitRemovedCount = 0;
+
+            if (hitObjectsToHitByLane[i].Count == 0) continue;
+            HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];
+            HitObject h = pairing.h;
+            float difference = trackTime - h.startTime;
+            
+            // HIT DETECTION
+            if (hitting && Mathf.Abs(difference) < 0.3f) // TODO Global tolerance
+            {
+                hit = true;
+                //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
+                // pls edit this to work with not distance, but TIME. TY! TODO
+                //to edit: 500000 is random, we should probably test a fair value
+                scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
+                scoreCountText.text = scoreInt.ToString();
+                comboCount++;
+
+                pairing.hv.Hit();
+                hitObjectsToHitByLane[i].Remove(pairing);
+                //Debug.Log("Hit!");
+            } else if (difference > 0.3f){
+                hitObjectsToHitByLane[i].Remove(pairing);
+                missed = true;
+                //Debug.Log("Too late!");
+            }
+
+            if ((!hit && hitting) || missed)
+            {
+                // The player missed, do whatever
+                comboCount = 0;
             }
         }
 

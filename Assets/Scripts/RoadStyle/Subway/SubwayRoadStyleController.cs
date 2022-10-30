@@ -31,7 +31,7 @@ public class SubwayRoadStyleController : RoadStyleController
         
     }
 
-    public override void HandleBeatmapEvent(BeatmapEvent be){
+    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv){
         System.Type beType = be.GetType();
         if (beType == typeof(HitObject)){
             HitObject h = (HitObject)be;
@@ -40,6 +40,6 @@ public class SubwayRoadStyleController : RoadStyleController
         } else if (beType == typeof(RoadRegionTransition)){
             RoadRegionTransition rrt = (RoadRegionTransition)be;
         }
-        
+        hv = null;
     }
 }

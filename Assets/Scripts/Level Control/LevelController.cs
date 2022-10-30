@@ -123,7 +123,7 @@ public class LevelController : MonoBehaviour
                         scoreInt += (int)((1 / difference) * 500000.0f * (1 + comboCount / 10f));
                         scoreCountText.text = scoreInt.ToString();
                         comboCount++;
-                        Destroy(circle);
+                        //Destroy(circle);
                     }
                 }
                 if (!hit){

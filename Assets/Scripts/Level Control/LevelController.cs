@@ -39,10 +39,12 @@ public class LevelController : MonoBehaviour
     private List<float> accuracy = new List<float>();
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
-    AudioSource audioSource, hitSound, earlySound, lateSound;
+    AudioSource audioSource;
+    private AudioSource[] soundEffects;
     RoadStyleController roadStyleController;
     PlayerInputController playerInputController;
     public static LevelController instance;
+
 
     private void Awake()
     {
@@ -61,8 +63,7 @@ public class LevelController : MonoBehaviour
     {
         // Get private component references
         audioSource = GetComponent<AudioSource>();
-        hitSound = GameObject.Find("Hit").GetComponent<AudioSource>();
-        lateSound = GameObject.Find("TooLate").GetComponent<AudioSource>();
+        soundEffects = GameObject.Find("Test Sounds").GetComponentsInChildren<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
         scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
@@ -78,6 +79,9 @@ public class LevelController : MonoBehaviour
         //InitializeHitObjectLanes();
         SetLevel(testLevel);
         ProcessBeatmap();
+
+
+
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
@@ -209,7 +213,7 @@ public class LevelController : MonoBehaviour
                 accuracyText.text = averageAcc.ToString() + '%';
 
                 //hit sound effects
-                hitSound.Play();
+                //hitSound.Play();
                 
             } else if (difference > tolerance){
                 hitObjectsToHitByLane[i].Remove(pairing);
@@ -218,7 +222,7 @@ public class LevelController : MonoBehaviour
                 //Debug.Log("Too late!");
 
                 //miss sound effects
-                lateSound.Play();
+                //lateSound.Play();
             }
 
             if ((!hit && hitting) || missed)

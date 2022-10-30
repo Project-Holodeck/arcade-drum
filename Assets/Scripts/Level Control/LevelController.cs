@@ -39,7 +39,7 @@ public class LevelController : MonoBehaviour
     private List<float> accuracy = new List<float>();
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
-    AudioSource audioSource;
+    AudioSource audioSource, hitSound, earlySound, lateSound;
     RoadStyleController roadStyleController;
     PlayerInputController playerInputController;
     public static LevelController instance;
@@ -61,6 +61,8 @@ public class LevelController : MonoBehaviour
     {
         // Get private component references
         audioSource = GetComponent<AudioSource>();
+        hitSound = GameObject.Find("Hit").GetComponent<AudioSource>();
+        lateSound = GameObject.Find("TooLate").GetComponent<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
         scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
@@ -179,12 +181,18 @@ public class LevelController : MonoBehaviour
                 accuracy.Add((tolerance - Mathf.Abs(difference)) / tolerance * 100f);
                 int averageAcc = (int)accuracy.Sum() / accuracy.Count();
                 accuracyText.text = averageAcc.ToString() + '%';
+
+                //hit sound effects
+                hitSound.Play();
                 
             } else if (difference > tolerance){
                 hitObjectsToHitByLane[i].Remove(pairing);
                 missed = true;
                 accuracy.Add(0f);
                 //Debug.Log("Too late!");
+
+                //miss sound effects
+                lateSound.Play();
             }
 
             if ((!hit && hitting) || missed)

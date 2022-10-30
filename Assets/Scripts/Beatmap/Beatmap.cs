@@ -9,6 +9,7 @@ public class BeatmapEvent
 
 }
 
+[System.Serializable]
 public class HitObject : BeatmapEvent
 {
     public int lane; // 0 to 3
@@ -36,6 +37,7 @@ public enum Difficulty { EASY, MEDIUM, HARD };
 /// <summary>
 /// Manages the HitObjects,
 /// </summary>
+[System.Serializable]
 public class Beatmap
 {
     [Header("Beatmap Information")]
@@ -51,4 +53,11 @@ public class Beatmap
 
     [Header("Mapped HitObjects")]
     public List<BeatmapEvent> beatmapEvents;
+
+    public Beatmap(LevelData level, Difficulty difficulty, float speed, List<BeatmapEvent> beatmapEvents){
+        this.level = level;
+        this.difficulty = difficulty;
+        this.speed = speed;
+        this.beatmapEvents = beatmapEvents;
+    }
 }

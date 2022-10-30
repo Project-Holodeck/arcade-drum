@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class LevelData
 {
     [Header("Level Information")]
@@ -12,4 +13,12 @@ public class LevelData
 
     [Header("Beatmap")]
     public Dictionary<Difficulty, Beatmap> beatmaps;
+
+    public LevelData(string songName, string albumName, string artistName, int songLength, Dictionary<Difficulty, Beatmap> beatmaps){
+        this.songName = songName;
+        this.albumName = albumName;
+        this.artistName = artistName;
+        this.songLength = songLength;
+        this.beatmaps = beatmaps;
+    }
 }

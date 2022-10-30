@@ -38,6 +38,7 @@ public class TestRoadStyleController : RoadStyleController
         {
             HitObject h = (HitObject)be;
             // Spawn a rat
+            Debug.Log("sus");
             Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity);
         }
         else if (beType == typeof(RoadRegionTransition))

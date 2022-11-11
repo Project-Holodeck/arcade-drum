@@ -1,38 +1,10 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO.Ports;
 using System.Threading;
 
-public class PlayerInputController : MonoBehaviour
+public class helloDrum : MonoBehaviour
 {
-    public bool[] lanePressedArray;
-
-    // Private component references
-    public static PlayerInputController instance;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject); // Can't have two player input controllers active at once
-        }
-        else
-        {
-            instance = this;
-            lanePressedArray = new bool[4];
-        }
-    }
-
-    // Update is called once per frame
-    /*
-    public void UpdateInputs()
-    {
-        lanePressedArray[0] = Input.GetKeyDown(KeyCode.A);
-        lanePressedArray[1] = Input.GetKeyDown(KeyCode.S);
-        lanePressedArray[2] = Input.GetKeyDown(KeyCode.D);
-        lanePressedArray[3] = Input.GetKeyDown(KeyCode.F);
-    }*/
     public string portName;
     SerialPort arduino;
     byte arduinoInput1;
@@ -47,15 +19,15 @@ public class PlayerInputController : MonoBehaviour
 
     void Start()
     {
-        arduino = new SerialPort("COM3", 9600);
+        arduino = new SerialPort("COM4", 9600);
         arduino.Open();
-        Thread sampleThread = new Thread(new ThreadStart(serialCallback));
+        Thread sampleThread = new Thread(new ThreadStart(sampleFunction));
         sampleThread.IsBackground = true;
         sampleThread.Start();
     }
 
 
-    public void serialCallback()
+    public void sampleFunction()
     {
         while (true)
         {
@@ -77,7 +49,7 @@ public class PlayerInputController : MonoBehaviour
         }
     }
 
-    public void UpdateInputs()
+    void Update()
     {
         if (arduino.IsOpen)
         {
@@ -85,41 +57,42 @@ public class PlayerInputController : MonoBehaviour
             {
                 if (arduinoInput1 == '1')
                 {
-                    lanePressedArray[0] = false;
+                    Cube1.transform.position += new Vector3(1 * Time.deltaTime, 0, 0);
+
                 }
                 else if (arduinoInput1 == '2')
                 {
-                    lanePressedArray[0] = true;
+                    Cube1.transform.position -= new Vector3(1 * Time.deltaTime, 0, 0);
                 }
 
                 if (arduinoInput2 == '3')
                 {
-                    lanePressedArray[1] = false;
+                    Cube2.transform.position += new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
                 else if (arduinoInput2 == '4')
                 {
-                    lanePressedArray[1] = true;
+                    Cube2.transform.position -= new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
                 if (arduinoInput3 == '5')
                 {
-                    lanePressedArray[2] = false;
+                    Cube3.transform.position += new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
                 else if (arduinoInput3 == '6')
                 {
-                    lanePressedArray[2] = true;
+                    Cube3.transform.position -= new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
                 if (arduinoInput4 == '7')
                 {
-                    lanePressedArray[3] = false;
+                    Cube4.transform.position += new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
                 else if (arduinoInput4 == '8')
                 {
-                    lanePressedArray[3] = true;
+                    Cube4.transform.position -= new Vector3(1 * Time.deltaTime, 0, 0);
 
                 }
             }

@@ -3,7 +3,47 @@ guid: 081602fb4b786ae43a56a335eb0bcebc
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bolts
+    second: {fileID: 2100000, guid: e43459eda4eedab4fb582ca10549e42e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: fae41cc775251314faddfaf7ee89178d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LightSource
+    second: {fileID: 2100000, guid: d5ee348a12a7bf1498398beccde3699f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: 18f36e2a4dc9a2a46bc62b96fc68b48e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MetalTrack
+    second: {fileID: 2100000, guid: f25458652bc3d4946a64b9d281458b84, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings
+    second: {fileID: 2100000, guid: 39034409c6adc2747b35bfc3dcd06710, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SideParts
+    second: {fileID: 2100000, guid: ff57b16021bd35d4290099ceaf8fe693, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 8d80ee3e561284947bf5ea2ef9f59c19, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

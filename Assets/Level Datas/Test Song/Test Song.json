@@ -2,5 +2,20 @@
 		"songName": "Test",
 		"albumName": "TestAlbum",
 		"artistName": "John Doe",
-		"songLength": 180
+		"songLength": 180,
+		"beatmaps": {
+			"difficulty": "Difficulty.EASY",
+			"beatmap": {
+				"level": null,
+				"difficulty": "Difficulty.EASY",
+				"speed": 1,
+				"beatmapEvents": [
+					{ 
+						"startTime": 2.0,
+						"endTime": 2.0,
+						"lane": 1
+					}
+				]
+			}
+		}
 }

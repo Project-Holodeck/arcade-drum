@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 public class SongList : MonoBehaviour
 {
@@ -41,9 +42,10 @@ public class SongList : MonoBehaviour
 
             //Retrieve level information as string from json
             string levelDataText = File.ReadAllText(Application.dataPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.json")[0].Name);
-
+            Debug.Log(levelDataText);
             //Format level information into LevelData
-            LevelData levelInfo = JsonUtility.FromJson<LevelData>(levelDataText);
+            LevelData levelInfo = JsonConvert.DeserializeObject<LevelData>(levelDataText);
+
             levelDatas[i] = levelInfo;
             
             songButton = Instantiate(songButtonTemplate, transform);

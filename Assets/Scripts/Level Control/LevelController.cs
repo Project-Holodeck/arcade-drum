@@ -77,7 +77,7 @@ public class LevelController : MonoBehaviour
 
 
         //InitializeHitObjectLanes();
-        SetLevel(testLevel);
+        //SetLevel(testLevel);
         ProcessBeatmap();
 
 
@@ -87,14 +87,10 @@ public class LevelController : MonoBehaviour
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     public void SetLevel(LevelData level){
-        this.level = level;
-<<<<<<< HEAD
-        //beatmap = level.beatmaps[Difficulty.EASY];
         Debug.Log(JsonUtility.ToJson(level));
-=======
+        this.level = level;
         beatmap = level.beatmaps[Difficulty.EASY];
         roadStyleController.Setup(beatmap);
->>>>>>> 89ac2ff4b844ff76224c736f02120dd802cbec9a
     }
 
     void InitializeHitObjectLanes(){
@@ -147,26 +143,6 @@ public class LevelController : MonoBehaviour
         // For all lanes, visualize hitobjects
         for (int i = 0; i < 4; i++)
         {
-<<<<<<< HEAD
-            if (playerInputController.lanePressedArray[i]){
-                bool hit = false;
-                foreach (HitObject h in hitObjectsByLane[i])
-                {
-                    float difference = trackTime - h.startTime;
-                    if (Mathf.Abs(difference) < 0.5f){
-                        hit = true;
-                        //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
-                        // pls edit this to work with not distance, but TIME. TY! TODO
-                        //to edit: 500000 is random, we should probably test a fair value
-                        scoreInt += (int)((1 / difference) * 500000.0f * (1 + comboCount / 10f));
-                        scoreCountText.text = scoreInt.ToString();
-                        comboCount++;
-                        //Destroy(circle);
-                    }
-                }
-                if (!hit){
-                    comboCount = 0;
-=======
             foreach (HitObject h in hitObjectsToSpawnByLane[i])
             {
                 if (h.startTime - roadStyleController.timeOffset <= trackTime){
@@ -175,7 +151,6 @@ public class LevelController : MonoBehaviour
                     hitObjectsToSpawnByLane[i].Remove(h);
                     hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
                     break;
->>>>>>> 89ac2ff4b844ff76224c736f02120dd802cbec9a
                 }
             }
         }

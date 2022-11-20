@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 public class BeatmapEvent
 {
@@ -32,7 +34,15 @@ public class RoadRegionTransition : BeatmapEvent
     }
 }
 
-public enum Difficulty { EASY, MEDIUM, HARD };
+public enum Difficulty { 
+    [EnumMember(Value = "EASY")]
+    EASY, 
+
+    [EnumMember(Value = "MEDIUM")]
+    MEDIUM, 
+
+    [EnumMember(Value = "HARD")]
+    HARD };
 
 /// <summary>
 /// Manages the HitObjects,

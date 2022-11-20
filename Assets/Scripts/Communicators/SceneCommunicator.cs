@@ -25,11 +25,12 @@ public class SceneCommunicator : MonoBehaviour
     {
         Debug.Log(SceneManager.GetActiveScene().name);
         if (SceneManager.GetActiveScene().name == "Beatmap Level")
-            GameObject.Find("LevelController").GetComponent<LevelController>().SetLevel(instance.sceneLevel);
+            GameObject.Find("LevelController").GetComponent<LevelController>().SetLevel(sceneLevel);
     }
 
     public void SetBeatmapLevel(LevelData levelData)
     {
+
         sceneLevel = levelData;
     }
 }

@@ -18,16 +18,10 @@ public class TrackMove : MonoBehaviour
 
     public void Setup(float speed, Vector3 startPos, TrackMove oneBefore, float offset)
     {
-<<<<<<< HEAD
-        startPos = transform.position;
-        repeatWidth = GetComponent<BoxCollider>().size.y;
-        //Debug.Log(repeatWidth);
-=======
         this.speed = speed;
         this.offset = offset;
         this.startPos = startPos;
         this.oneBefore = oneBefore;
->>>>>>> 89ac2ff4b844ff76224c736f02120dd802cbec9a
     }
 
     // Update is called once per frame  

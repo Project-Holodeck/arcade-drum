@@ -123,11 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
---- !u!1 &502489545
-=======
 --- !u!1 &180071260
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,25 +131,15 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
-  - component: {fileID: 502489547}
-  - component: {fileID: 502489546}
-  m_Layer: 0
-  m_Name: Test Sounds
-=======
   - component: {fileID: 180071261}
   - component: {fileID: 180071262}
   m_Layer: 0
   m_Name: Hit
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
---- !u!82 &502489546
-=======
 --- !u!4 &180071261
 Transform:
   m_ObjectHideFlags: 0
@@ -169,27 +155,17 @@ Transform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &180071262
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
-  m_GameObject: {fileID: 502489545}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-=======
   m_GameObject: {fileID: 180071260}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 46cfe0cebc349b94b924c821ffcb1c7c, type: 3}
   m_PlayOnAwake: 0
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -274,23 +250,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
---- !u!4 &502489547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 502489545}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 659.1854, y: 610.17535, z: -227.2391}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
 --- !u!1 &652987329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,11 +1007,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985299941}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
---- !u!1 &1002033323
-=======
 --- !u!1 &1177662524
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1060,44 +1015,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
-  - component: {fileID: 1002033324}
-  m_Layer: 0
-  m_Name: Hand Tracker (Leap)
-=======
   - component: {fileID: 1177662525}
   m_Layer: 0
   m_Name: Sound Effects
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
---- !u!4 &1002033324
-=======
 --- !u!4 &1177662525
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
-  m_GameObject: {fileID: 1002033323}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0505793, y: -56.55258, z: 149.18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-=======
   m_GameObject: {fileID: 1177662524}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 441.02777, y: 202.2504, z: 35.722717}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 850056599}
->>>>>>> e1b51287eab750973079ab1c6d9f32dcaa8c2e83:Assets/Scenes/MusicScene.unity
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

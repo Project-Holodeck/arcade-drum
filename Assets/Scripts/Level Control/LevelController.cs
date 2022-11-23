@@ -74,6 +74,7 @@ public class LevelController : MonoBehaviour
         Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 0.5f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
         testBeatmap.level = testLevel;
+        beatmap = testBeatmap;
 
 
         //InitializeHitObjectLanes();

@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
+<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
   m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.4222185, g: 0.452636, b: 0.47428787, a: 1}
+>>>>>>> b3667dec4b8bb26c0ff691ad87ad4779fceb8c16:Assets/Scenes/MusicScene.unity
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1269,7 +1273,7 @@ Transform:
   m_LocalScale: {x: 6.8467, y: 0.40653, z: 1}
   m_Children: []
   m_Father: {fileID: 2130477456}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1522335776
 BoxCollider:
@@ -1689,7 +1693,7 @@ Transform:
   m_LocalScale: {x: 0.45735, y: 0.45734993, z: 0.45734993}
   m_Children: []
   m_Father: {fileID: 2130477456}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3356806787082104354
 PrefabInstance:
@@ -1762,6 +1766,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 20.4
       objectReference: {fileID: 0}
+    - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+      propertyPath: trackPrefab
+      value: 
+      objectReference: {fileID: -1848949870427861755, guid: d7c7cd39196f5f4469f8085afbf7e3ef, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
 --- !u!23 &4454632931614841236

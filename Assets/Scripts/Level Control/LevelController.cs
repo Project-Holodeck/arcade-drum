@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
+using Newtonsoft.Json;
+
 public struct HitObjectVisualPairing{
     public HitObject h;
     public HitObjectVisual hv;
@@ -45,7 +47,6 @@ public class LevelController : MonoBehaviour
     PlayerInputController playerInputController;
     public static LevelController instance;
 
-
     private void Awake()
     {
         if (instance != null)
@@ -71,14 +72,12 @@ public class LevelController : MonoBehaviour
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         // Temp fix 
-        Beatmap testBeatmap = new Beatmap(null, Difficulty.EASY, 0.5f, new List<BeatmapEvent>() { new HitObject(2f, 2f, 0) });
+        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 2f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
-        testBeatmap.level = testLevel;
-        beatmap = testBeatmap;
 
 
         //InitializeHitObjectLanes();
-        //SetLevel(testLevel);
+        PrepareLevel();
         ProcessBeatmap();
 
 
@@ -87,9 +86,11 @@ public class LevelController : MonoBehaviour
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
-    public void SetLevel(LevelData level){
-        Debug.Log(JsonUtility.ToJson(level));
+    public void SetLevel(LevelData level) {
         this.level = level;
+    }
+
+    public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
         roadStyleController.Setup(beatmap);
     }

@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-<<<<<<< HEAD:Assets/Scenes/Beatmap Level.unity
-  m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
-=======
   m_IndirectSpecularColor: {r: 0.4222185, g: 0.452636, b: 0.47428787, a: 1}
->>>>>>> b3667dec4b8bb26c0ff691ad87ad4779fceb8c16:Assets/Scenes/MusicScene.unity
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:

@@ -4,11 +4,11 @@
 		"artistName": "John Doe",
 		"songLength": 180,
 		"beatmaps": {
-			"difficulty": "Difficulty.EASY",
-			"beatmap": {
-				"level": null,
-				"difficulty": "Difficulty.EASY",
-				"speed": 1,
+			"EASY": {
+				"difficulty": 0,
+				"roadStyle": 1,
+				"roadRegion": 0,
+				"speed": 0.5,
 				"beatmapEvents": [
 					{ 
 						"startTime": 2.0,

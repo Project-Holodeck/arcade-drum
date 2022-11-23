@@ -42,11 +42,13 @@ public class SongList : MonoBehaviour
 
             //Retrieve level information as string from json
             string levelDataText = File.ReadAllText(Application.dataPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.json")[0].Name);
-            Debug.Log(levelDataText);
+            
             //Format level information into LevelData
             LevelData levelInfo = JsonConvert.DeserializeObject<LevelData>(levelDataText);
-
+            Debug.Log(JsonConvert.SerializeObject(levelInfo));
             levelDatas[i] = levelInfo;
+
+            
             
             songButton = Instantiate(songButtonTemplate, transform);
 

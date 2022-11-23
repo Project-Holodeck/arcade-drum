@@ -1,21 +1,21 @@
 {
-		"songName": "Aba",
-		"albumName": "TEAD",
-		"artistName": "John Boom",
-		"songLength": 420,
-		"beatmaps": {
-			"difficulty": "EASY",
-			"beatmap": {
-				"level": null,
-				"difficulty": "EASY",
-				"speed": 1,
-				"beatmapEvents": [
-					{ 
-						"startTime": 2.0,
-						"endTime": 2.0,
-						"lane": 1
-					}
-				]
-			}
+	"songName": "Aba",
+	"albumName": "TEAD",
+	"artistName": "John Boom",
+	"songLength": 420,
+	"beatmaps": {
+		"EASY": {
+			"difficulty": 0,
+			"roadStyle": 1,
+			"roadRegion": 0,
+			"speed": 0.5,
+			"beatmapEvents": [
+				{ 
+					"startTime": 2.0,
+					"endTime": 2.0,
+					"lane": 1
+				}
+			]
 		}
+	}
 }

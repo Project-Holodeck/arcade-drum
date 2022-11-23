@@ -4,6 +4,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
+
 public class BeatmapEvent
 {
     public float startTime;
@@ -51,7 +52,6 @@ public enum Difficulty {
 public class Beatmap
 {
     [Header("Beatmap Information")]
-    public LevelData level;
     public Difficulty difficulty;
 
     [Header("Style Information")]
@@ -62,10 +62,9 @@ public class Beatmap
     public float speed; // 1 / (pressTime - spawnTime), so higher speed means less time between spawn and hit
 
     [Header("Mapped HitObjects")]
-    public List<BeatmapEvent> beatmapEvents;
+    public List<HitObject> beatmapEvents;
 
-    public Beatmap(LevelData level, Difficulty difficulty, float speed, List<BeatmapEvent> beatmapEvents){
-        this.level = level;
+    public Beatmap(Difficulty difficulty, float speed, List<HitObject> beatmapEvents){
         this.difficulty = difficulty;
         this.speed = speed;
         this.beatmapEvents = beatmapEvents;

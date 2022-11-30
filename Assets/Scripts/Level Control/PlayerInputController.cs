@@ -6,7 +6,7 @@ using System.Threading;
 
 public class PlayerInputController : MonoBehaviour
 {
-    public bool[] lanePressedArray;
+    public bool[] laneShortPressedArray, laneLongPressedArray;
 
     // Private component references
     public static PlayerInputController instance;
@@ -20,7 +20,8 @@ public class PlayerInputController : MonoBehaviour
         else
         {
             instance = this;
-            lanePressedArray = new bool[4];
+            laneShortPressedArray = new bool[4];
+            laneLongPressedArray = new bool[4];
         }
     }
 
@@ -28,10 +29,16 @@ public class PlayerInputController : MonoBehaviour
     
     public void UpdateInputs()
     {
-        lanePressedArray[0] = Input.GetKeyDown(KeyCode.A);
-        lanePressedArray[1] = Input.GetKeyDown(KeyCode.S);
-        lanePressedArray[2] = Input.GetKeyDown(KeyCode.D);
-        lanePressedArray[3] = Input.GetKeyDown(KeyCode.F);
+        laneShortPressedArray[0] = Input.GetKeyDown(KeyCode.A);
+        laneShortPressedArray[1] = Input.GetKeyDown(KeyCode.S);
+        laneShortPressedArray[2] = Input.GetKeyDown(KeyCode.D);
+        laneShortPressedArray[3] = Input.GetKeyDown(KeyCode.F);
+
+        laneLongPressedArray[0] = Input.GetKey(KeyCode.A);
+        laneLongPressedArray[1] = Input.GetKey(KeyCode.S);
+        laneLongPressedArray[2] = Input.GetKey(KeyCode.D);
+        laneLongPressedArray[3] = Input.GetKey(KeyCode.F);
+
     }
     /*public string portName;
     SerialPort arduino;

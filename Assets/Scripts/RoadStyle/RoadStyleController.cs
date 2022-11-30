@@ -63,7 +63,8 @@ public class RoadStyleController : MonoBehaviour
     }
 
     // Will spawn an individual hit object, implemented in each inherited class cause it's specific to the road style
-    public virtual void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv){
+    public virtual void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv, int segmentCount, int lastSegment)
+    {
         hv = null;
     }
 }

@@ -72,11 +72,12 @@ public class LevelController : MonoBehaviour
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         // Temp fix 
-        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 2f, 0) });
+        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
 
         //InitializeHitObjectLanes();
+        SetLevel(testLevel);
         PrepareLevel();
         ProcessBeatmap();
 
@@ -148,10 +149,29 @@ public class LevelController : MonoBehaviour
             foreach (HitObject h in hitObjectsToSpawnByLane[i])
             {
                 if (h.startTime - roadStyleController.timeOffset <= trackTime){
-                    HitObjectVisual hv;
-                    roadStyleController.HandleBeatmapEvent(h, out hv);
+
+                    if(h.startTime == h.endTime)
+                    {
+                        HitObjectVisual hv;
+                        roadStyleController.HandleBeatmapEvent(h, out hv, 0, 0);
+                        hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
+                    }
+
+                    if(h.startTime != h.endTime)
+                    {
+                        int segmentCount = (int)((h.endTime - h.startTime) / 0.2);
+                        for(int j = 0; j < segmentCount; j++)
+                        {
+                            HitObjectVisual hv;
+                            roadStyleController.HandleBeatmapEvent(h, out hv, j, segmentCount-1);
+                            hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
+                        }
+
+                    }
+                    
+
+
                     hitObjectsToSpawnByLane[i].Remove(h);
-                    hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
                     break;
                 }
             }
@@ -162,47 +182,21 @@ public class LevelController : MonoBehaviour
         {
             bool hit = false;
             bool missed = false;
-            bool hitting = playerInputController.lanePressedArray[i];
+            bool hitShort = playerInputController.laneShortPressedArray[i];
+            bool hitLong = playerInputController.laneLongPressedArray[i];
 
             if (hitObjectsToHitByLane[i].Count == 0) continue;
             HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];
             HitObject h = pairing.h;
             float difference = trackTime - h.startTime;
             float tolerance = 0.3f; //TODO global tolerance
-            // HIT DETECTION
-            if (hitting && Mathf.Abs(difference) < tolerance) // TODO Global tolerance
-            {
-                hit = true;
-                //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
-                // pls edit this to work with not distance, but TIME. TY! TODO
-                //to edit: 500000 is random, we should probably test a fair value
-                scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
-                scoreCountText.text = scoreInt.ToString();
-                comboCount++;
 
-                pairing.hv.Hit();
-                hitObjectsToHitByLane[i].Remove(pairing);
-                //Debug.Log("Hit!");
+            if (h.startTime == h.endTime)
+                HitDetectionShort(hitShort, difference, tolerance, pairing, out hit, out missed, i);
+            else
+                Debug.Log("Yes");
 
-                //accuracy text
-                accuracy.Add((tolerance - Mathf.Abs(difference)) / tolerance * 100f);
-                int averageAcc = (int)accuracy.Sum() / accuracy.Count();
-                accuracyText.text = averageAcc.ToString() + '%';
-
-                //hit sound effects
-                //hitSound.Play();
-                
-            } else if (difference > tolerance){
-                hitObjectsToHitByLane[i].Remove(pairing);
-                missed = true;
-                accuracy.Add(0f);
-                //Debug.Log("Too late!");
-
-                //miss sound effects
-                //lateSound.Play();
-            }
-
-            if ((!hit && hitting) || missed)
+            if ((!hit && hitShort) || missed)
             {
                 // The player missed, do whatever
                 comboCount = 0;
@@ -217,12 +211,65 @@ public class LevelController : MonoBehaviour
             comboCountText.text = comboCount.ToString() + 'x';
         }
         if (comboCount == 0)
-        {
+        {  
             comboText.maxVisibleCharacters = 0;
             comboCountText.maxVisibleCharacters = 0;
         }
         
         //accuracy text
 
+    }
+
+    void HitDetectionShort(bool hitShort, float difference, float tolerance, HitObjectVisualPairing pairing, out bool hit, out bool missed, int i)
+    {
+
+        if (hitShort && Mathf.Abs(difference) < tolerance) // TODO Global tolerance
+        {
+            
+            //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
+            // pls edit this to work with not distance, but TIME. TY! TODO
+            //to edit: 500000 is random, we should probably test a fair value
+            scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
+            scoreCountText.text = scoreInt.ToString();
+            comboCount++;
+
+            pairing.hv.Hit();
+            hitObjectsToHitByLane[i].Remove(pairing);
+            //Debug.Log("Hit!");
+
+            //accuracy text
+            accuracy.Add((tolerance - Mathf.Abs(difference)) / tolerance * 100f);
+            int averageAcc = (int)accuracy.Sum() / accuracy.Count();
+            accuracyText.text = averageAcc.ToString() + '%';
+
+            //hit sound effects
+            //hitSound.Play();
+
+            hit = true;
+            missed = false;
+        }
+        else if (difference > tolerance)
+        {
+            hitObjectsToHitByLane[i].Remove(pairing);
+            
+            accuracy.Add(0f);
+            //Debug.Log("Too late!");
+
+            //miss sound effects
+            //lateSound.Play();
+            hit = false;
+            missed = true;
+        }
+        else
+        {
+            hit = false;
+            missed = false;
+        }
+            
+    }
+
+    void HitDetectionLong(out bool hit)
+    {
+        hit = false;
     }
 }

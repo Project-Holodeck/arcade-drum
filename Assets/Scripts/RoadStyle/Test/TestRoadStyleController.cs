@@ -8,7 +8,7 @@ using UnityEngine;
 public class TestRoadStyleController : RoadStyleController
 {
     [Header("Prefabs")]
-    public GameObject circlePrefab;
+    public GameObject circlePrefab, headPrefab, bodyPrefab, buttPrefab;
     // Private component references
     private Transform[] hitObjectSpawnTransforms;
     private LevelController levelController;
@@ -34,17 +34,34 @@ public class TestRoadStyleController : RoadStyleController
 
     }
 
-    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv)
+    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv, int segmentCount, int lastSegment)
     {
         System.Type beType = be.GetType();
         if (beType == typeof(HitObject))
         {
             HitObject h = (HitObject)be;
-            // Spawn a rat
-            Circle circle = Instantiate(circlePrefab, hitObjectSpawnTransforms[h.lane].position, Quaternion.identity).GetComponent<Circle>();
-            //Debug.Log(string.Format("{0} sussy", distance * beatmap.speed));
-            circle.Setup(distance * beatmap.speed);
-            hv = circle;
+
+            GameObject ratPart;
+
+            //Spawns short rat
+            if (h.startTime == h.endTime)
+                ratPart = circlePrefab;
+
+            //Spawns long rat
+            else
+            {
+                if (segmentCount == 0)
+                    ratPart = headPrefab;
+                else if (segmentCount != lastSegment)
+                    ratPart = bodyPrefab;
+                else
+                    ratPart = buttPrefab;
+
+
+            }
+
+            GenerateRatBody(h, out hv, segmentCount, ratPart);
+
         }
         else if (beType == typeof(RoadRegionTransition))
         {
@@ -53,5 +70,13 @@ public class TestRoadStyleController : RoadStyleController
         } else {
             hv = null;
         }
+    }
+
+    void GenerateRatBody(HitObject h, out HitObjectVisual hv, int segmentCount, GameObject longRatPart)
+    {
+        //The 2f is approximation of long rat length
+        Circle circle = Instantiate(longRatPart, hitObjectSpawnTransforms[h.lane].position + Vector3.forward * segmentCount * 1.5f, Quaternion.identity).GetComponent<Circle>();
+        circle.Setup(distance * beatmap.speed);
+        hv = circle;
     }
 }

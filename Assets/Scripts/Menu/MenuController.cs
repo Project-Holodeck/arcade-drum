@@ -9,14 +9,25 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
 
+    public static MenuController instance;
+
+    public void Awake()
+    {
+        if (instance != null)
+            Destroy(gameObject);
+        else
+            instance = this;
+    }
+
     public void QuitGame()
     {
         Debug.Log("Quit");
         Application.Quit();
     }
 
-    public void PlayGame()
+    public void LoadBeatmap()
     {
-        SceneManager.LoadScene("MusicScene");
+        SceneManager.LoadScene("Beatmap Level");
     }
+
 }

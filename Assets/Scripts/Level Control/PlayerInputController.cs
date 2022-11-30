@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.Ports;
+//using System.IO.Ports;
 using System.Threading;
 
 public class PlayerInputController : MonoBehaviour
@@ -25,15 +25,15 @@ public class PlayerInputController : MonoBehaviour
     }
 
     // Update is called once per frame
-    /*
+    
     public void UpdateInputs()
     {
         lanePressedArray[0] = Input.GetKeyDown(KeyCode.A);
         lanePressedArray[1] = Input.GetKeyDown(KeyCode.S);
         lanePressedArray[2] = Input.GetKeyDown(KeyCode.D);
         lanePressedArray[3] = Input.GetKeyDown(KeyCode.F);
-    }*/
-    public string portName;
+    }
+    /*public string portName;
     SerialPort arduino;
     byte arduinoInput1;
     byte arduinoInput2;
@@ -129,5 +129,5 @@ public class PlayerInputController : MonoBehaviour
             }
 
         }
-    }
+    }*/
 }

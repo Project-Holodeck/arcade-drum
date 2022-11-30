@@ -31,7 +31,8 @@ public class SubwayRoadStyleController : RoadStyleController
         
     }
 
-    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv){
+    public override void HandleBeatmapEvent(BeatmapEvent be, out HitObjectVisual hv, int segmentCount, int lastSegment)
+    {
         System.Type beType = be.GetType();
         if (beType == typeof(HitObject)){
             HitObject h = (HitObject)be;

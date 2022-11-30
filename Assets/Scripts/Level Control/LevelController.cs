@@ -170,13 +170,14 @@ public class LevelController : MonoBehaviour
             float difference = trackTime - h.startTime;
             float tolerance = 0.3f; //TODO global tolerance
             // HIT DETECTION
-            if (hitting && Mathf.Abs(difference) < tolerance) // TODO Global tolerance
+            if (hitting && difference < tolerance && difference >= 0 ) // TODO Global tolerance
             {
                 hit = true;
                 //scoreInt += (int)((1 / distance) * 50000.0f * (1 + comboCount / 10f)); //edited formula: combocount actually matters in terms of scoring
                 // pls edit this to work with not distance, but TIME. TY! TODO
-                //to edit: 500000 is random, we should probably test a fair value
-                scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
+                //to see further:
+                //to edit further: have to see how the beatmap works with the hitting, currently the beatmap doesn't work
+                scoreInt += (int)((1 / Mathf.Abs(difference)) * 1000f * (1 + comboCount / 100f));
                 scoreCountText.text = scoreInt.ToString();
                 comboCount++;
 

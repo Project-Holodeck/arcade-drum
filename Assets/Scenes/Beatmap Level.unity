@@ -1875,11 +1875,7 @@ PrefabInstance:
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: bodyPrefab
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 2608102782167593905, guid: d269f0ae295af6f4c85deecbfb376e0a, type: 3}
-=======
       objectReference: {fileID: 2845789205551418268, guid: eb8888e58999a644aaad56a69f1e960c, type: 3}
->>>>>>> ea6e6fdb944034006020d878246582f11b5faed5
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: buttPrefab
       value: 
@@ -1887,11 +1883,7 @@ PrefabInstance:
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: headPrefab
       value: 
-<<<<<<< HEAD
-      objectReference: {fileID: 5903919087173270122, guid: 06b6152e415fbc444b2e436db29a8db8, type: 3}
-=======
       objectReference: {fileID: 7733766290242330800, guid: 439b70d7b618ff24e8e4c80a51e1f9f1, type: 3}
->>>>>>> ea6e6fdb944034006020d878246582f11b5faed5
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: trackPrefab
       value: 

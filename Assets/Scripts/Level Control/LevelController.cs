@@ -47,6 +47,9 @@ public class LevelController : MonoBehaviour
     PlayerInputController playerInputController;
     public static LevelController instance;
 
+    private bool[] longPressedLaneEnable;
+    private float[] longPressedLaneEnd;
+
     private void Awake()
     {
         if (instance != null)
@@ -77,11 +80,9 @@ public class LevelController : MonoBehaviour
 
 
         //InitializeHitObjectLanes();
-        SetLevel(testLevel);
+        //SetLevel(testLevel);
         PrepareLevel();
         ProcessBeatmap();
-
-
 
     }
 
@@ -99,6 +100,10 @@ public class LevelController : MonoBehaviour
     void InitializeHitObjectLanes(){
         hitObjectsToSpawnByLane = new Dictionary<int, List<HitObject>>();
         hitObjectsToHitByLane = new Dictionary<int, List<HitObjectVisualPairing>>();
+
+        longPressedLaneEnable = new bool[4];
+        longPressedLaneEnd = new float[4];
+
         for (int i = 0; i < 4; i++)
         {
             hitObjectsToSpawnByLane[i] = new List<HitObject>();
@@ -164,7 +169,8 @@ public class LevelController : MonoBehaviour
                         {
                             HitObjectVisual hv;
                             roadStyleController.HandleBeatmapEvent(h, out hv, j, segmentCount-1);
-                            hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
+                            if(j == 0) 
+                                hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
                         }
 
                     }
@@ -185,16 +191,31 @@ public class LevelController : MonoBehaviour
             bool hitShort = playerInputController.laneShortPressedArray[i];
             bool hitLong = playerInputController.laneLongPressedArray[i];
 
-            if (hitObjectsToHitByLane[i].Count == 0) continue;
-            HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];
-            HitObject h = pairing.h;
-            float difference = trackTime - h.startTime;
             float tolerance = 0.3f; //TODO global tolerance
 
-            if (h.startTime == h.endTime)
-                HitDetectionShort(hitShort, difference, tolerance, pairing, out hit, out missed, i);
-            else
-                Debug.Log("Yes");
+
+            if (longPressedLaneEnable[i])
+            {
+                HitDetectionLong(hitLong, tolerance, out hit, out missed, i);
+            }
+            else {
+
+                if (hitObjectsToHitByLane[i].Count == 0) continue;
+                HitObjectVisualPairing pairing = hitObjectsToHitByLane[i][0];
+                HitObject h = pairing.h;
+                float differenceStart = trackTime - h.startTime;
+
+                if (h.startTime == h.endTime)
+                    HitDetectionShort(hitShort, differenceStart, tolerance, pairing, out hit, out missed, i);
+                else
+                {
+                    HitDetectionShort(hitShort, differenceStart, tolerance, pairing, out hit, out missed, i); //When head arrives
+                    longPressedLaneEnable[i] = hit ? true : false;
+                    longPressedLaneEnd[i] = h.endTime;
+                }
+            }
+                
+
 
             if ((!hit && hitShort) || missed)
             {
@@ -268,8 +289,31 @@ public class LevelController : MonoBehaviour
             
     }
 
-    void HitDetectionLong(out bool hit)
+    void HitDetectionLong(bool hitLong, float tolerance, out bool hit, out bool missed, int i)
     {
+        float differenceEnd = trackTime - longPressedLaneEnd[i];
         hit = false;
+
+        if (Mathf.Abs(differenceEnd) < tolerance) //When tail arrives 
+        {
+            hit = hitLong ? false : true;
+            longPressedLaneEnable[i] = hitLong;
+
+        }
+        else if (trackTime < longPressedLaneEnd[i]) //During body
+        {
+            hit = hitLong ? true : false;
+            Debug.Log("hit!");
+
+        }
+        else if (differenceEnd > tolerance) //After tail leaves
+        {
+            longPressedLaneEnable[i] = false;
+        }
+
+        if (!hit)
+            longPressedLaneEnable[i] = false;
+
+        missed = !hit;
     }
 }

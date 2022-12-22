@@ -36,10 +36,10 @@ public class Circle : HitObjectVisual
     }
 
     public override void Hit(){
-        soundEffects = GetComponentsInChildren<AudioSource>();
-        Debug.Log(soundEffects.Length);
-        soundEffects[0].Play();
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        //soundEffects = GetComponentsInChildren<AudioSource>();
+        //Debug.Log(soundEffects.Length);
+        //soundEffects[0].Play();
+        //gameObject.transform.GetChild(0).gameObject.SetActive(false);
         Invoke("destruction", 8.0f);
     }
 

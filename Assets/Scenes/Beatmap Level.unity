@@ -410,11 +410,11 @@ Light:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 1
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_Intensity: 1
-  m_Range: 10
+  m_Range: 143.65
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1599,15 +1599,11 @@ MonoBehaviour:
     artistName: Test
     songLength: 10
   beatmap:
-    level:
-      songName: 
-      albumName: 
-      artistName: 
-      songLength: 0
     difficulty: 0
     roadStyle: 1
     roadRegion: 0
     speed: 0
+    beatmapEvents: []
   trackTime: 0
   comboCount: 0
 --- !u!4 &2068907987
@@ -1762,6 +1758,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 20.4
       objectReference: {fileID: 0}
+    - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+      propertyPath: bodyPrefab
+      value: 
+      objectReference: {fileID: 2845789205551418268, guid: eb8888e58999a644aaad56a69f1e960c, type: 3}
+    - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+      propertyPath: buttPrefab
+      value: 
+      objectReference: {fileID: 8661941802577717931, guid: bb94c62da86fea846978d04a278f9c6d, type: 3}
+    - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+      propertyPath: headPrefab
+      value: 
+      objectReference: {fileID: 7733766290242330800, guid: 439b70d7b618ff24e8e4c80a51e1f9f1, type: 3}
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: trackPrefab
       value: 

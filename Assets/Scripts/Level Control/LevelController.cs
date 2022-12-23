@@ -49,6 +49,7 @@ public class LevelController : MonoBehaviour
 
     private bool[] longPressedLaneEnable;
     private float[] longPressedLaneEnd;
+    private Queue<Queue<KeyValuePair<float, HitObjectVisual>>>[] longHitObjectsToHitByLane;
 
     private void Awake()
     {
@@ -100,6 +101,7 @@ public class LevelController : MonoBehaviour
     void InitializeHitObjectLanes(){
         hitObjectsToSpawnByLane = new Dictionary<int, List<HitObject>>();
         hitObjectsToHitByLane = new Dictionary<int, List<HitObjectVisualPairing>>();
+        longHitObjectsToHitByLane = new Queue<Queue<KeyValuePair<float, HitObjectVisual>>>[4];
 
         longPressedLaneEnable = new bool[4];
         longPressedLaneEnd = new float[4];
@@ -108,6 +110,7 @@ public class LevelController : MonoBehaviour
         {
             hitObjectsToSpawnByLane[i] = new List<HitObject>();
             hitObjectsToHitByLane[i] = new List<HitObjectVisualPairing>();
+            longHitObjectsToHitByLane[i] = new Queue<Queue<KeyValuePair<float, HitObjectVisual>>>();
         }
     }
 
@@ -164,14 +167,38 @@ public class LevelController : MonoBehaviour
 
                     if(h.startTime != h.endTime)
                     {
-                        int segmentCount = (int)((h.endTime - h.startTime) / 0.2);
-                        for(int j = 0; j < segmentCount; j++)
-                        {
-                            HitObjectVisual hv;
-                            roadStyleController.HandleBeatmapEvent(h, out hv, j, segmentCount-1);
-                            if(j == 0) 
-                                hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
-                        }
+                            float speed = 10;
+                            float headSize = ((TestRoadStyleController)roadStyleController).headPrefab.GetComponent<BoxCollider>().size.z;
+                            float bodySize = ((TestRoadStyleController)roadStyleController).bodyPrefab.GetComponent<BoxCollider>().size.z;
+                            float tailSize = ((TestRoadStyleController)roadStyleController).buttPrefab.GetComponent<BoxCollider>().size.z;
+                            float time = h.endTime - h.startTime - headSize / speed - tailSize / speed;
+                            float bodyTime = bodySize / speed;
+                            int segmentCount = (int)(2 + time / bodyTime + 0.5);
+                            Debug.Log((headSize/speed + tailSize/speed + bodyTime * (segmentCount - 2)) + "\n" + (h.endTime - h.startTime));
+
+                            Queue<KeyValuePair<float, HitObjectVisual>> newLongRat = new Queue<KeyValuePair<float, HitObjectVisual>>();
+
+                            for(int j = 0; j < segmentCount; j++)
+                            {
+                                HitObjectVisual hv;
+                                roadStyleController.HandleBeatmapEvent(h, out hv, j, segmentCount-1);
+                                float startTime = 0;
+                                
+
+                                if(j == 0) 
+                                    hitObjectsToHitByLane[i].Add(new HitObjectVisualPairing(h, hv));
+                                else {
+
+                                    if(j == segmentCount - 1) 
+                                        startTime = h.startTime + headSize/speed / 2 + bodyTime * (j - 1) + tailSize/speed / 2;
+                                    else if (j != 0) 
+                                        startTime = h.startTime + headSize/speed / 2 + bodyTime * (float)(j - 0.5);
+
+                                    newLongRat.Enqueue(new KeyValuePair<float, HitObjectVisual>(startTime,hv));
+                                }
+                            }
+
+                            longHitObjectsToHitByLane[i].Enqueue(newLongRat);
 
                     }
                     
@@ -196,7 +223,8 @@ public class LevelController : MonoBehaviour
 
             if (longPressedLaneEnable[i])
             {
-                HitDetectionLong(hitLong, tolerance, out hit, out missed, i);
+                Debug.Log(longHitObjectsToHitByLane[i].Count);
+                HitDetectionLong(hitLong, tolerance, out hit, out missed, i, longHitObjectsToHitByLane[i].Peek());
             }
             else {
 
@@ -211,13 +239,17 @@ public class LevelController : MonoBehaviour
                 {
                     HitDetectionShort(hitShort, differenceStart, tolerance, pairing, out hit, out missed, i); //When head arrives
                     longPressedLaneEnable[i] = hit ? true : false;
-                    longPressedLaneEnd[i] = h.endTime;
+                    if(longPressedLaneEnable[i]) {
+                        longPressedLaneEnd[i] = h.endTime;
+                    } else if(missed){
+                        longHitObjectsToHitByLane[i].Dequeue();
+                    }
                 }
             }
                 
 
 
-            if ((!hit && hitShort) || missed)
+            if ((!hit && (hitShort || hitLong)) || missed)
             {
                 // The player missed, do whatever
                 comboCount = 0;
@@ -289,30 +321,63 @@ public class LevelController : MonoBehaviour
             
     }
 
-    void HitDetectionLong(bool hitLong, float tolerance, out bool hit, out bool missed, int i)
+    void HitDetectionLong(bool hitLong, float tolerance, out bool hit, out bool missed, int i, Queue<KeyValuePair<float, HitObjectVisual>> queue)
     {
         float differenceEnd = trackTime - longPressedLaneEnd[i];
         hit = false;
 
         if (Mathf.Abs(differenceEnd) < tolerance) //When tail arrives 
         {
-            hit = hitLong ? false : true;
+            hit = true;
             longPressedLaneEnable[i] = hitLong;
+            if(queue.Peek().Key <= trackTime && !hitLong) {
+                queue.Peek().Value.Hit();
+                queue.Dequeue();
+
+                scoreInt += (int)((1 / Mathf.Abs(differenceEnd)) * 500000.0f * (1 + comboCount / 10f));
+                scoreCountText.text = scoreInt.ToString();
+                comboCount++;
+
+                accuracy.Add((tolerance - Mathf.Abs(differenceEnd)) / tolerance * 100f);
+                int averageAcc = (int)accuracy.Sum() / accuracy.Count();
+                accuracyText.text = averageAcc.ToString() + '%';
+            }
+                
+
+            
 
         }
-        else if (trackTime < longPressedLaneEnd[i]) //During body
+        else if (trackTime < longPressedLaneEnd[i] - tolerance) //During body
         {
             hit = hitLong ? true : false;
-            Debug.Log("hit!");
 
+            if(queue.Peek().Key <= trackTime && hitLong) {
+                queue.Peek().Value.Hit();
+                queue.Dequeue();
+
+
+                scoreInt += (int)((1 / Mathf.Abs(tolerance)) * 500000.0f * (1 + comboCount / 10f));
+                scoreCountText.text = scoreInt.ToString();
+                comboCount++;
+
+                accuracy.Add((tolerance - 0) / tolerance * 100f);
+                int averageAcc = (int)accuracy.Sum() / accuracy.Count();
+                accuracyText.text = averageAcc.ToString() + '%';    
+            }
+            
         }
         else if (differenceEnd > tolerance) //After tail leaves
         {
             longPressedLaneEnable[i] = false;
+            hit = false;
+
         }
 
         if (!hit)
             longPressedLaneEnable[i] = false;
+
+        if(!longPressedLaneEnable[i])
+            longHitObjectsToHitByLane[i].Dequeue();
 
         missed = !hit;
     }

@@ -40,7 +40,7 @@ public class Circle : HitObjectVisual
         //Debug.Log(soundEffects.Length);
         //soundEffects[0].Play();
         //gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        Invoke("destruction", 8.0f);
+        destruction();
     }
 
     void destruction()

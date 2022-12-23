@@ -72,10 +72,16 @@ public class TestRoadStyleController : RoadStyleController
         }
     }
 
-    void GenerateRatBody(HitObject h, out HitObjectVisual hv, int segmentCount, GameObject longRatPart)
+    void GenerateRatBody(HitObject h, out HitObjectVisual hv, int segmentCount, GameObject ratPart)
     {
-        //The 2f is approximation of long rat length
-        Circle circle = Instantiate(longRatPart, hitObjectSpawnTransforms[h.lane].position + Vector3.forward * segmentCount * 1.5f, Quaternion.identity).GetComponent<Circle>();
+
+        Vector3 pos = Vector3.forward * 0;
+        if(ratPart == buttPrefab)
+            pos = Vector3.forward * (bodyPrefab.GetComponent<BoxCollider>().size.z * (segmentCount - 1) + headPrefab.GetComponent<BoxCollider>().size.z /2 + buttPrefab.GetComponent<BoxCollider>().size.z /2);
+        else if(ratPart == bodyPrefab)
+            pos =  Vector3.forward * (bodyPrefab.GetComponent<BoxCollider>().size.z * (segmentCount - 1) + bodyPrefab.GetComponent<BoxCollider>().size.z /2 + headPrefab.GetComponent<BoxCollider>().size.z /2 );
+            
+        Circle circle = Instantiate(ratPart, hitObjectSpawnTransforms[h.lane].position + pos, Quaternion.identity).GetComponent<Circle>();
         circle.Setup(distance * beatmap.speed);
         hv = circle;
     }

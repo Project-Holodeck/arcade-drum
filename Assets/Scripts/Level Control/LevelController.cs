@@ -39,6 +39,7 @@ public class LevelController : MonoBehaviour
     private int scoreInt = 0;
     public int comboCount = 0;
     private List<float> accuracy = new List<float>();
+    private RectTransform barPos;
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
     AudioSource audioSource;
@@ -49,6 +50,8 @@ public class LevelController : MonoBehaviour
 
     private bool[] longPressedLaneEnable;
     private float[] longPressedLaneEnd;
+
+    private int songDuration;
 
     private void Awake()
     {
@@ -74,6 +77,7 @@ public class LevelController : MonoBehaviour
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
+        barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
         // Temp fix 
         Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
@@ -84,6 +88,7 @@ public class LevelController : MonoBehaviour
         PrepareLevel();
         ProcessBeatmap();
 
+        scoreCountText.text = "0000000000";
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
@@ -95,6 +100,8 @@ public class LevelController : MonoBehaviour
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
         roadStyleController.Setup(beatmap);
+        songDuration = level.songLength;
+        Debug.Log(songDuration);
     }
 
     void InitializeHitObjectLanes(){
@@ -126,9 +133,11 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         trackTime += Time.deltaTime;
-
+        //bar 
+        var pos = barPos.localPosition;
+        barPos.localPosition = new Vector3(-618f + trackTime / songDuration * 641f, pos.y, pos.z);
+        
         // Input detection
-        //Debug.Log("hi");
         // Janky input detection
         bool tempSpawnRandomNote = Input.GetKeyDown(KeyCode.Space);
         bool tempStartSong = Input.GetKeyDown(KeyCode.Return);
@@ -251,7 +260,7 @@ public class LevelController : MonoBehaviour
             // pls edit this to work with not distance, but TIME. TY! TODO
             //to edit: 500000 is random, we should probably test a fair value
             scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
-            scoreCountText.text = scoreInt.ToString();
+            scoreCountText.text = string.Format("{0:0000000000}", scoreInt);
             comboCount++;
 
             pairing.hv.Hit();

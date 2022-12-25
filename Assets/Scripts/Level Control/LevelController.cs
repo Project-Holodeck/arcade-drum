@@ -40,6 +40,7 @@ public class LevelController : MonoBehaviour
     public int comboCount = 0;
 
     private List<float> accuracy = new List<float>();
+    private RectTransform barPos;
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
     AudioSource audioSource;
@@ -53,6 +54,8 @@ public class LevelController : MonoBehaviour
     private bool[] longPressedLaneEnable; //Enables long-press hit detection for each lane
     private float[] longPressedLaneEnd; //Stores end-time of a long-hit
     private Queue<Queue<KeyValuePair<float, HitObjectVisual>>>[] longHitObjectsToHitByLane; //Stores hit object visuals to be deleted at certain times upon hit detection
+
+    private int songDuration;
 
     private void Awake()
     {
@@ -78,6 +81,7 @@ public class LevelController : MonoBehaviour
         comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
+        barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
         // Temp fix 
         //Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         //LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
@@ -88,6 +92,7 @@ public class LevelController : MonoBehaviour
         PrepareLevel();
         ProcessBeatmap();
 
+        scoreCountText.text = "0000000000";
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
@@ -99,6 +104,8 @@ public class LevelController : MonoBehaviour
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
         roadStyleController.Setup(beatmap);
+        songDuration = level.songLength;
+        Debug.Log(songDuration);
     }
 
     void InitializeHitObjectLanes(){
@@ -132,9 +139,11 @@ public class LevelController : MonoBehaviour
     void Update()
     {
         trackTime += Time.deltaTime;
-
+        //bar 
+        var pos = barPos.localPosition;
+        barPos.localPosition = new Vector3(-618f + trackTime / songDuration * 641f, pos.y, pos.z);
+        
         // Input detection
-        //Debug.Log("hi");
         // Janky input detection
         bool tempSpawnRandomNote = Input.GetKeyDown(KeyCode.Space);
         bool tempStartSong = Input.GetKeyDown(KeyCode.Return);

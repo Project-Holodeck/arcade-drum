@@ -39,10 +39,14 @@ RenderSettings:
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
 =======
   m_IndirectSpecularColor: {r: 0.42221862, g: 0.45263636, b: 0.47428775, a: 1}
 >>>>>>> 26430ff0cf32b955f1323c71927fcd678351312e
+=======
+  m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
+>>>>>>> a6fccbfc921d4b5a4ea4a82c437866f74bb58bd2
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -486,7 +490,7 @@ Light:
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 2
+  m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
   m_Intensity: 1
@@ -495,7 +499,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -2352,6 +2356,10 @@ PrefabInstance:
       propertyPath: trackPrefab
       value: 
       objectReference: {fileID: -1848949870427861755, guid: d7c7cd39196f5f4469f8085afbf7e3ef, type: 3}
+    - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
+      propertyPath: circlePrefab
+      value: 
+      objectReference: {fileID: 4109040889679782537, guid: 3257ba5ef23241e4f8f825e7f58dd2c7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
 --- !u!23 &4454632931614841236

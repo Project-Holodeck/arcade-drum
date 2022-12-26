@@ -49,7 +49,6 @@ public class SongList : MonoBehaviour
             levelDatas[i] = levelInfo;
 
             
-            
             songButton = Instantiate(songButtonTemplate, transform);
 
             //Display song information in button

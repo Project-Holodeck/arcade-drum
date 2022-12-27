@@ -13,16 +13,23 @@ public class Circle : HitObjectVisual
     private PlayerController playerControllerScript;
     private AudioSource[] soundEffects;
 
-    public MeshRenderer skinnedMesh;
+    public MeshRenderer[] skinnedMesh;
 
-    private Material[] skinnedMaterials;
+    private List<Material> skinnedMaterials;
     
     // Start is called before the first frame update
     void Start()
     {
         playerControllerScript = GameObject.Find("PlayerController").GetComponent<PlayerController>();
+        skinnedMaterials = new List<Material>();
         if(skinnedMesh != null)
-            skinnedMaterials = skinnedMesh.materials;
+            for(int i = 0; i < skinnedMesh.Length; i++) {
+                Material[] tempMaterials = skinnedMesh[i].materials;
+                for(int j = 0; j < tempMaterials.Length; j++) 
+                    skinnedMaterials.Add(tempMaterials[j]);
+            }
+                
+                    
         
        
     }
@@ -57,12 +64,12 @@ public class Circle : HitObjectVisual
     }
 
     IEnumerator Dissolve() {
-        if(skinnedMaterials.Length > 0) {
+        if(skinnedMaterials.Count > 0) {
             float counter = 0;
             
             while(skinnedMaterials[0].GetFloat("DissolveAmount") < 1) {
                 counter += dissolveRate;
-                for(int i = 0; i < skinnedMaterials.Length; i++) 
+                for(int i = 0; i < skinnedMaterials.Count; i++) 
                     skinnedMaterials[i].SetFloat("DissolveAmount", counter);
                 
                 yield return new WaitForSeconds(refreshRate);

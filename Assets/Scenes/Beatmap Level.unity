@@ -2335,7 +2335,7 @@ PrefabInstance:
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: bodyPrefab
       value: 
-      objectReference: {fileID: 2845789205551418268, guid: eb8888e58999a644aaad56a69f1e960c, type: 3}
+      objectReference: {fileID: 6385755674425094084, guid: eb8888e58999a644aaad56a69f1e960c, type: 3}
     - target: {fileID: 7853097977245244792, guid: 2780a6ca1eeeafc4bbc99b18f302cf47, type: 3}
       propertyPath: buttPrefab
       value: 

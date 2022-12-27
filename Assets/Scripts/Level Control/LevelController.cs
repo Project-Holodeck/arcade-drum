@@ -338,7 +338,7 @@ public class LevelController : MonoBehaviour
     }
 
     void GenerateLongHitRat(int lane, HitObject h) {
-        float speed = 10,
+        float speed = 10f,
             headSize = ((TestRoadStyleController)roadStyleController).headPrefab.GetComponent<BoxCollider>().size.z,
             bodySize = ((TestRoadStyleController)roadStyleController).bodyPrefab.GetComponent<BoxCollider>().size.z,
             tailSize = ((TestRoadStyleController)roadStyleController).buttPrefab.GetComponent<BoxCollider>().size.z,
@@ -361,9 +361,9 @@ public class LevelController : MonoBehaviour
             else {
 
                 if(j == segmentCount - 1) 
-                    startTime = h.startTime + headSize/speed / 2 + bodyTime * (j - 1) + tailSize/speed / 2;
+                    startTime = h.startTime + headSize/speed * 0.5f + bodyTime * (j - 1) + tailSize/speed * 0.5f;
                 else if (j != 0) 
-                    startTime = h.startTime + headSize/speed / 2 + bodyTime * (float)(j - 0.5);
+                    startTime = h.startTime + headSize/speed * 0.5f + bodyTime * (j - 0.5f);
 
                 newLongRat.Enqueue(new KeyValuePair<float, HitObjectVisual>(startTime,hv));
             }

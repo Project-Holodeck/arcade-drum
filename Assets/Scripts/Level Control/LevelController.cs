@@ -83,12 +83,10 @@ public class LevelController : MonoBehaviour
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
         // Temp fix 
-        //Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
-        //LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
+        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
+        LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
-
-        //InitializeHitObjectLanes();
-        //SetLevel(testLevel);
+        SetLevel(testLevel);
         PrepareLevel();
         ProcessBeatmap();
 

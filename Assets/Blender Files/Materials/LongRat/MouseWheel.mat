@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Boolean_a46eafb03f1b4d31b59fe26ce6b4f2cb: 1
-    - DissolveAmount: -0.4
+    - DissolveAmount: -0.3
     - DissolveWidth: 0.12
     - Vector1_61a19563e7e6495ca19b60eb9ec32104: 40
     m_Colors:

@@ -101,7 +101,7 @@ public class LevelController : MonoBehaviour
 
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
-        roadStyleController.Setup(beatmap);
+        //roadStyleController.Setup(beatmap);
         songDuration = level.songLength;
         Debug.Log(songDuration);
     }

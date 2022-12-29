@@ -26,6 +26,9 @@ public class TestRoadStyleController : RoadStyleController
 
         levelController = LevelController.instance;
         distance = hitObjectSpawnTransforms[0].position.z; // the physical distance the circle moves in this road
+
+        setSpeed(0f);
+        Setup();
     }
 
     // Update is called once per frame

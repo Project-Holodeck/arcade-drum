@@ -25,6 +25,8 @@ public class RoadStyleController : MonoBehaviour
     public float distance;
     public float timeOffset;
 
+    private float trackSpeed;
+
     private void Awake()
     {
         if (instance != null){
@@ -34,19 +36,22 @@ public class RoadStyleController : MonoBehaviour
         }
     }
 
-    public void Setup(Beatmap beatmap)
+    public void setSpeed(float speed) {
+        this.trackSpeed = speed;
+    }
+
+    public void Setup()
     {
-        this.beatmap = beatmap;
-        timeOffset = 1f / beatmap.speed;
+        timeOffset = 1f / trackSpeed;
 
         // Draw the epic track
-        Vector3 startPos = transform.position + transform.forward * trackPrefab.repeatWidth * 29;
+        Vector3 startPos = transform.position + transform.forward * trackPrefab.GetComponent<BoxCollider>().size.z * 29;
         TrackMove first = null;
         TrackMove lol = null;
         TrackMove last = null;
         for (int i = -4; i < 30; i++)
         {
-            TrackMove tm = Instantiate(trackPrefab, transform.position + transform.forward * i * trackPrefab.repeatWidth, trackPrefab.transform.rotation);
+            TrackMove tm = Instantiate(trackPrefab, transform.position + transform.forward * i * trackPrefab.GetComponent<BoxCollider>().size.z, trackPrefab.transform.rotation);
             if (i == -4)
             {
                 first = tm;
@@ -55,11 +60,11 @@ public class RoadStyleController : MonoBehaviour
             else
             {
                 //Debug.Log(string.Format("{0} sjsus usus", distance * beatmap.speed));
-                tm.Setup(distance * beatmap.speed, startPos, lol, transform.position.z);
+                tm.Setup(distance * trackSpeed, startPos, lol, transform.position.z);
                 lol = tm;
             }
         }
-        first.Setup(distance * beatmap.speed, startPos, lol, transform.position.z);
+        first.Setup(distance * trackSpeed, startPos, lol, transform.position.z);
     }
 
     // Will spawn an individual hit object, implemented in each inherited class cause it's specific to the road style

@@ -83,12 +83,10 @@ public class LevelController : MonoBehaviour
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
         // Temp fix 
-        //Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
-        //LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
+        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
+        LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
-
-        //InitializeHitObjectLanes();
-        //SetLevel(testLevel);
+        SetLevel(testLevel);
         PrepareLevel();
         ProcessBeatmap();
 
@@ -103,7 +101,7 @@ public class LevelController : MonoBehaviour
 
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
-        roadStyleController.Setup(beatmap);
+        //roadStyleController.Setup(beatmap);
         songDuration = level.songLength;
         Debug.Log(songDuration);
     }
@@ -338,7 +336,7 @@ public class LevelController : MonoBehaviour
     }
 
     void GenerateLongHitRat(int lane, HitObject h) {
-        float speed = 10,
+        float speed = 10f,
             headSize = ((TestRoadStyleController)roadStyleController).headPrefab.GetComponent<BoxCollider>().size.z,
             bodySize = ((TestRoadStyleController)roadStyleController).bodyPrefab.GetComponent<BoxCollider>().size.z,
             tailSize = ((TestRoadStyleController)roadStyleController).buttPrefab.GetComponent<BoxCollider>().size.z,
@@ -361,9 +359,9 @@ public class LevelController : MonoBehaviour
             else {
 
                 if(j == segmentCount - 1) 
-                    startTime = h.startTime + headSize/speed / 2 + bodyTime * (j - 1) + tailSize/speed / 2;
+                    startTime = h.startTime + headSize/speed * 0.5f + bodyTime * (j - 1) + tailSize/speed * 0.5f;
                 else if (j != 0) 
-                    startTime = h.startTime + headSize/speed / 2 + bodyTime * (float)(j - 0.5);
+                    startTime = h.startTime + headSize/speed * 0.5f + bodyTime * (j - 0.5f);
 
                 newLongRat.Enqueue(new KeyValuePair<float, HitObjectVisual>(startTime,hv));
             }

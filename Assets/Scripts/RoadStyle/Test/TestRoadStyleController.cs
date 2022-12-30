@@ -85,7 +85,7 @@ public class TestRoadStyleController : RoadStyleController
             pos =  Vector3.forward * (bodyPrefab.GetComponent<BoxCollider>().size.z * (segmentCount - 1) + bodyPrefab.GetComponent<BoxCollider>().size.z /2 + headPrefab.GetComponent<BoxCollider>().size.z /2 );
             
         Circle circle = Instantiate(ratPart, hitObjectSpawnTransforms[h.lane].position + pos, Quaternion.identity).GetComponent<Circle>();
-        circle.Setup(distance * beatmap.speed);
+        circle.Setup(distance * trackSpeed);
         hv = circle;
     }
 }

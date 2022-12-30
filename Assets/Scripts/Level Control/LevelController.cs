@@ -101,7 +101,8 @@ public class LevelController : MonoBehaviour
 
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
-        //roadStyleController.Setup(beatmap);
+        roadStyleController.setSpeed(beatmap.speed);
+        roadStyleController.Setup();
         songDuration = level.songLength;
         Debug.Log(songDuration);
     }
@@ -171,6 +172,7 @@ public class LevelController : MonoBehaviour
                         GenerateLongHitRat(i, h);
                     
                     hitObjectsToSpawnByLane[i].Remove(h);
+                    Debug.Log("T");
                     break;
                 }
             }

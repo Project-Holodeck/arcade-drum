@@ -25,7 +25,7 @@ public class RoadStyleController : MonoBehaviour
     public float distance;
     public float timeOffset;
 
-    private float trackSpeed;
+    protected float trackSpeed;
 
     private void Awake()
     {

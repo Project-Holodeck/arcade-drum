@@ -90,10 +90,13 @@ public class LevelController : MonoBehaviour
         SetLevel(testLevel);*/
         PrepareLevel();
         ProcessBeatmap();
-        audioSource.Play();
+        Invoke("playMusic", 2.9f);
         scoreCountText.text = "0000000000";
     }
-
+    void playMusic()
+    {
+        audioSource.Play();
+    }
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     public void SetLevel(LevelData level) {

@@ -82,14 +82,15 @@ public class LevelController : MonoBehaviour
         comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
-        // Temp fix 
+        // Temp fix
+        /*
         Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
-        SetLevel(testLevel);
+        SetLevel(testLevel);*/
         PrepareLevel();
         ProcessBeatmap();
-
+        audioSource.Play();
         scoreCountText.text = "0000000000";
     }
 
@@ -172,7 +173,7 @@ public class LevelController : MonoBehaviour
                         GenerateLongHitRat(i, h);
                     
                     hitObjectsToSpawnByLane[i].Remove(h);
-                    Debug.Log("T");
+                    //Debug.Log("T");
                     break;
                 }
             }
@@ -373,7 +374,7 @@ public class LevelController : MonoBehaviour
     }
 
     void IncreaseScoreAccuracy(float tolerance, float difference, float accuracyDifference) {
-        scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
+        scoreInt += (int)((1 / Mathf.Abs(difference)) * 5000.0f * (1 + comboCount / 10f));
         scoreCountText.text = scoreInt.ToString();
         comboCount++;
 

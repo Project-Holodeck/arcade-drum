@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
+  m_IndirectSpecularColor: {r: 0.4222185, g: 0.452636, b: 0.47428787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -159,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -283.65, y: -218}
+  m_AnchoredPosition: {x: -283.65, y: -192.45}
   m_SizeDelta: {x: 132.14, y: 119.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &69596601
@@ -205,7 +205,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 69596602}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1353746112}
+        m_TargetAssemblyTypeName: SongSelection, Assembly-CSharp
+        m_MethodName: LeftButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &69596602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,7 +521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 283.65, y: -218}
+  m_AnchoredPosition: {x: 283.65, y: -192.45}
   m_SizeDelta: {x: 132.14, y: 119.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275770253
@@ -555,7 +567,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 275770254}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1353746112}
+        m_TargetAssemblyTypeName: SongSelection, Assembly-CSharp
+        m_MethodName: RightButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &275770254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,11 +940,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1118203641}
-<<<<<<< HEAD
   - {fileID: 1617365535}
-=======
   - {fileID: 763197677}
->>>>>>> 5903e5960417cf96b311d441eeb7c1fdf0baaa84
   m_Father: {fileID: 245060179}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -984,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &639869447
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1282,6 +1303,7 @@ GameObject:
   - component: {fileID: 763197677}
   - component: {fileID: 763197679}
   - component: {fileID: 763197678}
+  - component: {fileID: 763197680}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -1297,16 +1319,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763197676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 102.5}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children: []
   m_Father: {fileID: 487660509}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 266.55}
-  m_SizeDelta: {x: 545.26, y: 185.1}
+  m_AnchoredPosition: {x: 0, y: 6.24}
+  m_SizeDelta: {x: 310.1, y: 283.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763197678
 MonoBehaviour:
@@ -1328,7 +1350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: e1894a81c99765042aec9ea16ed9c3d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1346,6 +1368,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763197676}
   m_CullTransparentMesh: 1
+--- !u!223 &763197680
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763197676}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &785868032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,13 +1724,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.0018326491, y: 0, z: 0, w: 0.99999833}
-  m_LocalPosition: {x: 0, y: 4.3, z: -6.2}
+  m_LocalRotation: {x: 0.08263426, y: 0, z: 0, w: 0.99657995}
+  m_LocalPosition: {x: 0, y: 4.85, z: -8.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.21, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 9.48, y: 0, z: 0}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,7 +2331,7 @@ RectTransform:
   m_GameObject: {fileID: 1118203640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1}
   m_Children:
   - {fileID: 1156033739}
   m_Father: {fileID: 487660509}
@@ -2380,17 +2423,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.64705884, g: 1, b: 0.68658006, a: 0.41960785}
+  m_Color: {r: 0.64705884, g: 1, b: 0.68658006, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
-  m_FillCenter: 1
+  m_FillCenter: 0
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
@@ -2417,7 +2460,7 @@ GameObject:
   - component: {fileID: 1125801515}
   - component: {fileID: 1125801514}
   m_Layer: 5
-  m_Name: Prev Song Image
+  m_Name: Left Song Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2724,6 +2767,7 @@ GameObject:
   - component: {fileID: 1353746109}
   - component: {fileID: 1353746111}
   - component: {fileID: 1353746110}
+  - component: {fileID: 1353746112}
   m_Layer: 5
   m_Name: Song Selection
   m_TagString: Untagged
@@ -2795,6 +2839,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353746108}
   m_CullTransparentMesh: 1
+--- !u!114 &1353746112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353746108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b084f92c3609c40a1e3863f13bd6c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songsFolder: Level Datas
+  currentImage: {fileID: 885796697}
+  leftImage: {fileID: 1125801514}
+  rightImage: {fileID: 1999062867}
+  menuCameraPos:
+  - 4.3
+  - -6.2
+  originalRotation: -0.21
+  newRotation: 9.48
+  songCameraPos:
+  - 4.3
+  - -6.2
+  camera: {fileID: 0}
 --- !u!1 &1370425763
 GameObject:
   m_ObjectHideFlags: 0
@@ -3526,7 +3595,7 @@ RectTransform:
   m_GameObject: {fileID: 1617365534}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 487660509}
   m_RootOrder: 1
@@ -3556,7 +3625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 45e55fbc893ae5747a51bd3ee80cf7e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4179,7 +4248,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SELECT
+  m_text: PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -4413,7 +4482,7 @@ GameObject:
   - component: {fileID: 1999062868}
   - component: {fileID: 1999062867}
   m_Layer: 5
-  m_Name: Next Song Image
+  m_Name: Right Song Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4512,7 +4581,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -218}
+  m_AnchoredPosition: {x: 0, y: -192.45}
   m_SizeDelta: {x: 297.3, y: 120.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2035190082
@@ -4571,7 +4640,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 639869446}
+      - m_Target: {fileID: 1086356362}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -4581,7 +4650,19 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1353746112}
+        m_TargetAssemblyTypeName: SongSelection, Assembly-CSharp
+        m_MethodName: StartMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2035190083
 MonoBehaviour:
@@ -4638,7 +4719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &2068907985
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4760,6 +4841,7 @@ MonoBehaviour:
     beatmapEvents: []
   trackTime: 0
   comboCount: 0
+  HUD: {fileID: 785868032}
 --- !u!4 &2068907987
 Transform:
   m_ObjectHideFlags: 0

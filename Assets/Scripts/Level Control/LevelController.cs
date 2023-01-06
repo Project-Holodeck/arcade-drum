@@ -30,6 +30,8 @@ public class LevelController : MonoBehaviour
     private Dictionary<int, List<HitObject>> hitObjectsToSpawnByLane;
     private Dictionary<int, List<HitObjectVisualPairing>> hitObjectsToHitByLane;
 
+    
+
 
     [Header("Track Data")]
     [SerializeField]
@@ -56,6 +58,10 @@ public class LevelController : MonoBehaviour
     private Queue<Queue<KeyValuePair<float, HitObjectVisual>>>[] longHitObjectsToHitByLane; //Stores hit object visuals to be deleted at certain times upon hit detection
 
     private int songDuration;
+    
+    public GameObject HUD;
+
+    private bool start;
 
     private void Awake()
     {
@@ -77,20 +83,17 @@ public class LevelController : MonoBehaviour
         soundEffects = GameObject.Find("Test Sounds").GetComponentsInChildren<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
-        scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
-        comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
-        comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
-        accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
-        barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
+        
         // Temp fix 
         Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
-        SetLevel(testLevel);
-        PrepareLevel();
-        ProcessBeatmap();
+        //SetLevel(testLevel);
+        //PrepareLevel();
+        //ProcessBeatmap();
+        start = false;
 
-        scoreCountText.text = "0000000000";
+        
     }
 
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
@@ -123,7 +126,7 @@ public class LevelController : MonoBehaviour
         }
     }
 
-    void ProcessBeatmap(){
+    public void ProcessBeatmap(){
         InitializeHitObjectLanes();
         foreach (BeatmapEvent be in beatmap.beatmapEvents)
         {
@@ -134,9 +137,27 @@ public class LevelController : MonoBehaviour
         }
     }
 
+    public void StartMap() {
+        
+        HUD.SetActive(true);
+
+        scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
+        comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
+        comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
+        accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
+        barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
+
+        scoreCountText.text = "0000000000";
+
+        start = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if(!start)
+            return;
+            
         trackTime += Time.deltaTime;
         //bar 
         var pos = barPos.localPosition;
@@ -161,7 +182,6 @@ public class LevelController : MonoBehaviour
         if (tempStartSong){
             audioSource.Play();
         }
-
         // For all lanes, visualize hitobjects
         for (int i = 0; i < 4; i++) {
             foreach (HitObject h in hitObjectsToSpawnByLane[i]) {

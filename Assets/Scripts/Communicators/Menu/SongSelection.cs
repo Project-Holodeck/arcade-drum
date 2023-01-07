@@ -108,10 +108,14 @@ public class SongSelection : MonoBehaviour
     }
 
     public void StartMap() {
+        string beatmapSongDirectory = "Songs/" + songDirectories[currentIndex].Name;
+        levelController.audioSource.clip = Resources.Load<AudioClip>(beatmapSongDirectory);
+        
         levelController.SetLevel(levelDatas[currentIndex]);
         levelController.PrepareLevel();
         levelController.ProcessBeatmap();
         levelController.StartMap();
+        levelController.playMusic();
         Debug.Log("Donezo");
     }
 }

@@ -45,7 +45,7 @@ public class LevelController : MonoBehaviour
     private RectTransform barPos;
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
-    AudioSource audioSource;
+    public AudioSource audioSource;
     private AudioSource[] soundEffects;
 
     RoadStyleController roadStyleController;
@@ -79,27 +79,10 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         // Get private component references
-        audioSource = GetComponent<AudioSource>();
+        this.audioSource = GetComponent<AudioSource>();
         soundEffects = GameObject.Find("Test Sounds").GetComponentsInChildren<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
-<<<<<<< HEAD
-        scoreCountText = GameObject.Find("ScoreCountText").GetComponent<TextMeshProUGUI>();
-        comboText = GameObject.Find("ComboText").GetComponent<TextMeshProUGUI>();
-        comboCountText = GameObject.Find("ComboCountText").GetComponent<TextMeshProUGUI>();
-        accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
-        barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
-        // Temp fix
-        /*
-        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
-        LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
-
-        SetLevel(testLevel);*/
-        PrepareLevel();
-        ProcessBeatmap();
-        Invoke("playMusic", 2.9f);
-        scoreCountText.text = "0000000000";
-=======
         
         // Temp fix 
         Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
@@ -111,9 +94,13 @@ public class LevelController : MonoBehaviour
         start = false;
 
         
->>>>>>> e39f1d2efbbe112aea8bdf89e1ae64fb46735a1a
     }
-    void playMusic()
+    public void playMusic()
+    {
+        Invoke("startSong", 2.8f);
+    }
+
+    void startSong()
     {
         audioSource.Play();
     }

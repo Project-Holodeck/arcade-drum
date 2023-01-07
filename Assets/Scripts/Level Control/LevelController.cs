@@ -102,13 +102,10 @@ public class LevelController : MonoBehaviour
     }
     public void playMusic()
     {
-        Invoke("startSong", 2.8f);
+        audioSource.PlayDelayed(2.6f); //FINE TUNE THIS
     }
 
-    void startSong()
-    {
-        audioSource.Play();
-    }
+
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     public void SetLevel(LevelData level) {

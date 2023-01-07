@@ -19,17 +19,14 @@ public class SongSelection : MonoBehaviour
 
     public Image currentImage, leftImage, rightImage;
 
-    public float[] menuCameraPos = {4.3f, -6.2f};
-    public float originalRotation = -0.21f;
-    public float newRotation = 9.48f;
-    public float[] songCameraPos = {4.85f, -8.29f};
+    CameraPosition camera;
 
-    public Camera camera; 
 
     // Start is called before the first frame update
     void Start()
     {
         songDirectories = new DirectoryInfo(Application.dataPath + "/" + songsFolder).GetDirectories();
+        camera = CameraPosition.instance;
 
         levelDatas = new Dictionary<int, LevelData>();
         spriteDatas = new Dictionary<int, Sprite>();
@@ -112,6 +109,7 @@ public class SongSelection : MonoBehaviour
         levelController.PrepareLevel();
         levelController.ProcessBeatmap();
         levelController.StartMap();
+        camera.setBeatmapPosition();
         Debug.Log("Donezo");
     }
 }

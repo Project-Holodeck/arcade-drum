@@ -37,6 +37,8 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     private float trackTime;
 
+    private float noInputTime;
+
     [Header("Current Attempt Data")]
     private int scoreInt = 0;
     public int comboCount = 0;
@@ -45,7 +47,7 @@ public class LevelController : MonoBehaviour
     private RectTransform barPos;
     // Private component references
     private TextMeshProUGUI scoreCountText, comboText, comboCountText, accuracyText;
-    AudioSource audioSource;
+    public AudioSource audioSource;
     private AudioSource[] soundEffects;
 
     RoadStyleController roadStyleController;
@@ -63,6 +65,7 @@ public class LevelController : MonoBehaviour
 
     private bool start;
 
+    private GameObject menuContainer, songSelection; 
     private void Awake()
     {
         if (instance != null)
@@ -79,14 +82,16 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         // Get private component references
-        audioSource = GetComponent<AudioSource>();
+        this.audioSource = GetComponent<AudioSource>();
         soundEffects = GameObject.Find("Test Sounds").GetComponentsInChildren<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
         
+        menuContainer = GameObject.Find("MenuContainer");
+        songSelection = GameObject.Find("Song Selection");
         // Temp fix 
-        Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
-        LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
+        // Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
+        // LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
 
         //SetLevel(testLevel);
         //PrepareLevel();
@@ -95,7 +100,15 @@ public class LevelController : MonoBehaviour
 
         
     }
+    public void playMusic()
+    {
+        Invoke("startSong", 2.8f);
+    }
 
+    void startSong()
+    {
+        audioSource.Play();
+    }
     // This method call should come at scene start from a DontDestroyOnLoad class. That class will act as a communicator between scenes and probably
     // shouldn't process the data. Also it receives the level data from a save load class that is separate. TODO
     public void SetLevel(LevelData level) {
@@ -147,18 +160,49 @@ public class LevelController : MonoBehaviour
         accuracyText = GameObject.Find("AccuracyText").GetComponent<TextMeshProUGUI>();
         barPos = GameObject.Find("BarCover").GetComponent<RectTransform>();
 
+
         scoreCountText.text = "0000000000";
 
         start = true;
     }
 
+    void handleAFK(){
+        start = false;
+        audioSource.Stop();
+        menuContainer.SetActive(true);
+        songSelection.SetActive(true);
+        Debug.Log("AFK");
+        
+        resetScore();
+    }
+
+    void resetScore(){
+        trackTime = 0;
+        noInputTime = 0;
+
+        scoreCountText.text = "0000000000";
+        scoreInt = 0;
+
+        comboCount = 0;        
+        comboText.maxVisibleCharacters = 0;
+        comboCountText.maxVisibleCharacters = 0;
+
+        accuracy.Clear();
+        accuracyText.text = "";
+        
+        barPos.localPosition = new Vector3(-618f, barPos.localPosition.y, barPos.localPosition.z);
+    }
     // Update is called once per frame
     void Update()
     {
         if(!start)
             return;
-            
+
+        if(noInputTime >= 20f){
+            handleAFK();
+        }    
         trackTime += Time.deltaTime;
+        noInputTime += Time.deltaTime;
         //bar 
         var pos = barPos.localPosition;
         barPos.localPosition = new Vector3(-618f + trackTime / songDuration * 641f, pos.y, pos.z);
@@ -192,7 +236,7 @@ public class LevelController : MonoBehaviour
                         GenerateLongHitRat(i, h);
                     
                     hitObjectsToSpawnByLane[i].Remove(h);
-                    Debug.Log("T");
+                    //Debug.Log("T");
                     break;
                 }
             }
@@ -206,6 +250,9 @@ public class LevelController : MonoBehaviour
             bool hitShort = playerInputController.laneShortPressedArray[i];
             bool hitLong = playerInputController.laneLongPressedArray[i];
 
+            if(hitShort || hitLong){
+                noInputTime = 0;
+            }
             float tolerance = 0.3f; //TODO global tolerance
 
 
@@ -393,7 +440,7 @@ public class LevelController : MonoBehaviour
     }
 
     void IncreaseScoreAccuracy(float tolerance, float difference, float accuracyDifference) {
-        scoreInt += (int)((1 / Mathf.Abs(difference)) * 500000.0f * (1 + comboCount / 10f));
+        scoreInt += (int)((1 / Mathf.Abs(difference)) * 5000.0f * (1 + comboCount / 10f));
         scoreCountText.text = scoreInt.ToString();
         comboCount++;
 

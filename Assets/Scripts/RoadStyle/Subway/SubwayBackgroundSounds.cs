@@ -21,7 +21,7 @@ public class SubwayBackgroundSounds : MonoBehaviour
     void PlaySound()
     {
         backgroundSound.Play();
-        Debug.Log("played");
+        //Debug.Log("played");
     }
     void StopSound()
     {

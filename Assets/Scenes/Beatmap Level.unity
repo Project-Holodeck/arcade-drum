@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4222652, g: 0.4527114, b: 0.4744215, a: 1}
+  m_IndirectSpecularColor: {r: 0.42221862, g: 0.45263636, b: 0.47428775, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -284,7 +284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.045117326, y: 0.9387219}
   m_AnchorMax: {x: 0.045117326, y: 0.9387219}
-  m_AnchoredPosition: {x: 317.5999, y: -77.599945}
+  m_AnchoredPosition: {x: 348, y: -62}
   m_SizeDelta: {x: 653.2, y: 185.09998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425849075
@@ -2066,7 +2066,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5129efd434a6d7f49b95abab43edcdc6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 63c3ec4201b46ff418bfc4b06b18fcc5, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

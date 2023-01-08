@@ -112,8 +112,8 @@ public class SongSelection : MonoBehaviour
         levelController.PrepareLevel();
         levelController.ProcessBeatmap();
         levelController.StartMap();
-        camera.setBeatmapPosition();
         levelController.playMusic();
+        //camera.setBeatmapPosition();
         Debug.Log("Donezo");
     }
 }

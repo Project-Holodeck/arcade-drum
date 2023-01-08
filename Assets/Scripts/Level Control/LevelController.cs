@@ -88,7 +88,7 @@ public class LevelController : MonoBehaviour
         playerInputController = PlayerInputController.instance;
         
         menuContainer = GameObject.Find("MenuContainer");
-        songSelection = GameObject.Find("Song Selection");
+        songSelection = GameObject.Find("Main Menu");
         // Temp fix 
         // Beatmap testBeatmap = new Beatmap(Difficulty.EASY, 0.5f, new List<HitObject>() { new HitObject(2f, 5f, 0) });
         // LevelData testLevel = new LevelData("Test", "Test", "Test", 10, new Dictionary<Difficulty, Beatmap> { { Difficulty.EASY, testBeatmap } });
@@ -188,6 +188,8 @@ public class LevelController : MonoBehaviour
         accuracyText.text = "";
         
         barPos.localPosition = new Vector3(-618f, barPos.localPosition.y, barPos.localPosition.z);
+
+        CancelInvoke("HandleBeatmapCompletion");
     }
     // Update is called once per frame
     void Update()
@@ -444,5 +446,14 @@ public class LevelController : MonoBehaviour
         accuracy.Add((tolerance - Mathf.Abs(accuracyDifference)) / tolerance * 100f);
         int averageAcc = (int)accuracy.Sum() / accuracy.Count();
         accuracyText.text = averageAcc.ToString() + '%';
+    }
+
+    public void startTimer(){
+        Invoke("HandleBeatmapCompletion", songDuration + 5);
+    }
+    public void HandleBeatmapCompletion(){
+        //function here, can't pass in arguments (unfortunately)
+        audioSource.Stop(); //unfortunately, this line is necessary because of one of the songs (henceforth), will improve if I get around to it
+        Debug.Log("Song complete!");
     }
 }

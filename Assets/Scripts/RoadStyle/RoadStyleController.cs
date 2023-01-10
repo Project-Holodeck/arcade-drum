@@ -36,13 +36,16 @@ public class RoadStyleController : MonoBehaviour
         }
     }
 
-    public void setSpeed(float speed) {
-        this.trackSpeed = speed;
+    public void setSpeed(float speed) { 
+        this.trackSpeed = speed; 
+        timeOffset = 1f / trackSpeed;
     }
+
+    public float getSpeed() { return trackSpeed; }
 
     public void Setup()
     {
-        timeOffset = 1f / trackSpeed;
+       
 
         // Draw the epic track
         Vector3 startPos = transform.position + transform.forward * trackPrefab.GetComponent<BoxCollider>().size.z * 29;
@@ -60,11 +63,11 @@ public class RoadStyleController : MonoBehaviour
             else
             {
                 //Debug.Log(string.Format("{0} sjsus usus", distance * beatmap.speed));
-                tm.Setup(distance * trackSpeed, startPos, lol, transform.position.z);
+                tm.Setup(startPos, lol, transform.position.z);
                 lol = tm;
             }
         }
-        first.Setup(distance * trackSpeed, startPos, lol, transform.position.z);
+        first.Setup(startPos, lol, transform.position.z);
     }
 
     // Will spawn an individual hit object, implemented in each inherited class cause it's specific to the road style

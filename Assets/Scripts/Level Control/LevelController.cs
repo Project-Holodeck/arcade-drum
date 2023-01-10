@@ -52,6 +52,7 @@ public class LevelController : MonoBehaviour
 
     RoadStyleController roadStyleController;
     PlayerInputController playerInputController;
+    CameraPosition camera;
 
     public static LevelController instance;
 
@@ -86,6 +87,7 @@ public class LevelController : MonoBehaviour
         soundEffects = GameObject.Find("Test Sounds").GetComponentsInChildren<AudioSource>();
         roadStyleController = RoadStyleController.instance;
         playerInputController = PlayerInputController.instance;
+        camera = CameraPosition.instance;
         
         menuContainer = GameObject.Find("MenuContainer");
         songSelection = GameObject.Find("Main Menu");
@@ -115,7 +117,6 @@ public class LevelController : MonoBehaviour
     public void PrepareLevel() {
         beatmap = level.beatmaps[Difficulty.EASY];
         roadStyleController.setSpeed(beatmap.speed);
-        roadStyleController.Setup();
         songDuration = level.songLength;
         Debug.Log(songDuration);
     }
@@ -168,6 +169,7 @@ public class LevelController : MonoBehaviour
         audioSource.Stop();
         menuContainer.SetActive(true);
         songSelection.SetActive(true);
+        camera.setMenuPosition();
         Debug.Log("AFK");
         
         resetScore();
@@ -455,5 +457,13 @@ public class LevelController : MonoBehaviour
         //function here, can't pass in arguments (unfortunately)
         audioSource.Stop(); //unfortunately, this line is necessary because of one of the songs (henceforth), will improve if I get around to it
         Debug.Log("Song complete!");
+        camera.setMenuPosition();
+        
+        start = false;
+        resetScore();
+
+        //Temporary Screen
+
+        
     }
 }

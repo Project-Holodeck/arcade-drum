@@ -167,6 +167,7 @@ public class LevelController : MonoBehaviour
     void handleAFK(){
         start = false;
         audioSource.Stop();
+		HUD.SetActive(false);
         menuContainer.SetActive(true);
         songSelection.SetActive(true);
         camera.setMenuPosition();
@@ -206,27 +207,31 @@ public class LevelController : MonoBehaviour
         noInputTime += Time.deltaTime;
         //bar 
         var pos = barPos.localPosition;
-        barPos.localPosition = new Vector3(-618f + trackTime / songDuration * 641f, pos.y, pos.z);
+        barPos.localPosition = new Vector3(-509f + trackTime / songDuration * 641f, pos.y, pos.z);
         
         // Input detection
-        // Janky input detection
-        bool tempSpawnRandomNote = Input.GetKeyDown(KeyCode.Space);
-        bool tempStartSong = Input.GetKeyDown(KeyCode.Return);
+       // Janky input detection /*
+         //bool tempSpawnRandomNote = Input.GetKeyDown(KeyCode.Space);
+        //bool tempStartSong = Input.GetKeyDown(KeyCode.Return);
 
         // Less janky input detection
         playerInputController.UpdateInputs(); // General class, derived class will connect w/ Arduino
 
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			handleAFK();
+		}
         // To delete lol, is just for testing
-        if (tempSpawnRandomNote){
-            int lane = Random.Range(0,  4);
-            HitObject randomHitObject = new HitObject(trackTime + roadStyleController.timeOffset, trackTime + roadStyleController.timeOffset, lane);
+        //if (tempSpawnRandomNote){
+         //   int lane = Random.Range(0,  4);
+          //  HitObject randomHitObject = new HitObject(trackTime + roadStyleController.timeOffset, trackTime + roadStyleController.timeOffset, lane);
             //roadStyleController.HandleBeatmapEvent(randomHitObject);
-            hitObjectsToSpawnByLane[lane].Add(randomHitObject);
-        }
+         //   hitObjectsToSpawnByLane[lane].Add(randomHitObject);
+        //}
 
-        if (tempStartSong){
-            audioSource.Play();
-        }
+        //if (tempStartSong){
+         //   audioSource.Play();
+        //} 
         // For all lanes, visualize hitobjects
         for (int i = 0; i < 4; i++) {
             foreach (HitObject h in hitObjectsToSpawnByLane[i]) {
@@ -462,8 +467,10 @@ public class LevelController : MonoBehaviour
         start = false;
         resetScore();
 
-        //Temporary Screen
+        //Temporary Screen        
+		menuContainer.SetActive(true);
+		songSelection.SetActive(true);
+		HUD.SetActive(false);
 
-        
     }
 }

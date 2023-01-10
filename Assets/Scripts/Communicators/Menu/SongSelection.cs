@@ -25,7 +25,7 @@ public class SongSelection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        songDirectories = new DirectoryInfo(Application.dataPath + "/" + songsFolder).GetDirectories();
+        songDirectories = new DirectoryInfo(Application.streamingAssetsPath + "/" + songsFolder).GetDirectories();
         camera = CameraPosition.instance;
 
         levelDatas = new Dictionary<int, LevelData>();
@@ -54,8 +54,8 @@ public class SongSelection : MonoBehaviour
         for(int i = 0; i < songDirectories.Length; i++) {
 
             //Retrieve level information as string from json and load image as sprite
-            string levelDataText = File.ReadAllText(Application.dataPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.json")[0].Name);
-            string imageFile = Application.dataPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.png")[0].Name;
+            string levelDataText = File.ReadAllText(Application.streamingAssetsPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.json")[0].Name);
+            string imageFile = Application.streamingAssetsPath + "/" + songsFolder + "/" + songDirectories[i].Name + "/" + songDirectories[i].GetFiles("*.png")[0].Name;
             Sprite songCover = LoadSprite(imageFile);
 
             //Format level information into LevelData

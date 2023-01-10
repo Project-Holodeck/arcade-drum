@@ -49,7 +49,9 @@ public class PlayerInputController : MonoBehaviour
 
     void Start()
     {
-        arduino = new SerialPort("COM8", 9600);
+        arduinoInput = new char[4];
+        
+        arduino = new SerialPort("COM3", 9600);
         arduino.DtrEnable = true;
         arduino.RtsEnable = true;
         arduino.Open();
@@ -61,6 +63,7 @@ public class PlayerInputController : MonoBehaviour
 
     public void serialCallback()
     {
+        while(true) {
             Debug.Log(arduino.IsOpen);
             try
             {
@@ -75,6 +78,7 @@ public class PlayerInputController : MonoBehaviour
             {
                 Debug.Log("Aw");
             }
+        }   
           
     }
 
@@ -92,7 +96,7 @@ public class PlayerInputController : MonoBehaviour
                     //GetKeyDown
                     if(laneShortPressedArray[i])
                         laneShortPressedArray[i] = false;
-                    else if(arduinoInput[i] == i*2 + '1');
+                    else if(arduinoInput[i] == i*2 + '1')
                         laneShortPressedArray[i] = true;
 
                     //Checking output

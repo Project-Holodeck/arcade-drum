@@ -8,13 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Beatmap Level.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/Menu.unity
-    guid: 077273a4a67ff4c4e8c9421bba1978cb
-  - enabled: 1
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/Scenes/Developer Menu.unity
     guid: 1c659604b87a64a49ac5f85a19f6eb2a
+  - enabled: 1
+    path: Assets/Scenes/Main Track.unity
+    guid: e375787f9d9d67342b1d5975f7ae3523
   m_configObjects: {}

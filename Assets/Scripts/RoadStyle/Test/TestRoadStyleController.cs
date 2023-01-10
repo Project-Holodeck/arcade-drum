@@ -26,6 +26,9 @@ public class TestRoadStyleController : RoadStyleController
 
         levelController = LevelController.instance;
         distance = hitObjectSpawnTransforms[0].position.z; // the physical distance the circle moves in this road
+
+        setSpeed(0f);
+        Setup();
     }
 
     // Update is called once per frame
@@ -72,11 +75,17 @@ public class TestRoadStyleController : RoadStyleController
         }
     }
 
-    void GenerateRatBody(HitObject h, out HitObjectVisual hv, int segmentCount, GameObject longRatPart)
+    void GenerateRatBody(HitObject h, out HitObjectVisual hv, int segmentCount, GameObject ratPart)
     {
-        //The 2f is approximation of long rat length
-        Circle circle = Instantiate(longRatPart, hitObjectSpawnTransforms[h.lane].position + Vector3.forward * segmentCount * 1.5f, Quaternion.identity).GetComponent<Circle>();
-        circle.Setup(distance * beatmap.speed);
+
+        Vector3 pos = Vector3.forward * 0;
+        if(ratPart == buttPrefab)
+            pos = Vector3.forward * (bodyPrefab.GetComponent<BoxCollider>().size.z * (segmentCount - 1) + headPrefab.GetComponent<BoxCollider>().size.z /2 + buttPrefab.GetComponent<BoxCollider>().size.z /2);
+        else if(ratPart == bodyPrefab)
+            pos =  Vector3.forward * (bodyPrefab.GetComponent<BoxCollider>().size.z * (segmentCount - 1) + bodyPrefab.GetComponent<BoxCollider>().size.z /2 + headPrefab.GetComponent<BoxCollider>().size.z /2 );
+            
+        Circle circle = Instantiate(ratPart, hitObjectSpawnTransforms[h.lane].position + pos, Quaternion.identity).GetComponent<Circle>();
+        circle.Setup(distance * trackSpeed);
         hv = circle;
     }
 }

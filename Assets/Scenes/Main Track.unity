@@ -795,9 +795,9 @@ RectTransform:
   m_Father: {fileID: 785868036}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.045117326, y: 0.9387219}
-  m_AnchorMax: {x: 0.045117326, y: 0.9387219}
-  m_AnchoredPosition: {x: 340, y: -63}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -627.1001, y: 362.7}
   m_SizeDelta: {x: 653.2, y: 185.09998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425849075
@@ -1659,6 +1659,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1763,6 +1764,28 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5f6010687398348bd7332dca6a95aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  songCameraPos:
+  - 0
+  - 4.85
+  - -8.29
+  menuCameraPos:
+  - 0
+  - 4.3
+  - -6.2
+  originalRotation: -0.21
+  newRotation: 9.48
 --- !u!1 &979626615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2855,15 +2878,6 @@ MonoBehaviour:
   currentImage: {fileID: 885796697}
   leftImage: {fileID: 1125801514}
   rightImage: {fileID: 1999062867}
-  menuCameraPos:
-  - 4.3
-  - -6.2
-  originalRotation: -0.21
-  newRotation: 9.48
-  songCameraPos:
-  - 4.3
-  - -6.2
-  camera: {fileID: 0}
 --- !u!1 &1370425763
 GameObject:
   m_ObjectHideFlags: 0
